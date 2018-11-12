@@ -1,0 +1,1 @@
+INSERT INTO sandwich (id, name, price, ingredients) VALUES (1, 'init sandwich', 0.0, 'no ingredients')
