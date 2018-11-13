@@ -1,11 +1,10 @@
 class DenTravakApp extends HTMLElement{
     constructor(){
         super();
-        this.initShadowDom;
+        this.connectedCallBack();
     }
 
     connectedCallBack(){
-        this.innerHTML = this.template;
         this.initShadowDom();
     }
     
