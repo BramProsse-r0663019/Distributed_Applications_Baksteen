@@ -16,7 +16,7 @@ public class Sandwich {
     private String ingredients;
     private BigDecimal price;
 //  private List<String> ingredients;
-    
+
     public Sandwich(){
 
     }
@@ -72,11 +72,8 @@ public class Sandwich {
 //
 //    }
 
-<<<<<<< HEAD
     public static class LunchBuilder{
 
         private LunchBuilder(){}
     }
-=======
->>>>>>> 96b65a5c4d2eee5d87de573cd9d9bec195eefd80
 }
