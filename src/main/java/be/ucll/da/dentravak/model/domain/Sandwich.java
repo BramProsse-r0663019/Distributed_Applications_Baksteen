@@ -1,6 +1,7 @@
 package be.ucll.da.dentravak.model.domain;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
@@ -12,24 +13,24 @@ public class Sandwich {
     private UUID id;
 
     private String name;
-//    private List<String> ingredients = new ArrayList<>();
     private String ingredients;
-    private double price;
-
-//    public Sandwich(String name, double price, List<String> ingredients) {
-//        this.name = name;
-//        this.price = price;
-//    }
+    private BigDecimal price;
+//  private List<String> ingredients;
 
     public Sandwich(){
 
     }
 
-    public Sandwich(String name, double price, String ingredients ) {
+    public Sandwich(String name, BigDecimal price, String ingredients ) {
         this.name = name;
         this.ingredients = ingredients;
         this.price = price;
     }
+
+//  public Sandwich(String name, double price, List<String> ingredients) {
+//      this.name = name;
+//      this.price = price;
+//  }
 
     public void setIngredients(String ingredients) {
         this.ingredients = ingredients;
@@ -51,11 +52,11 @@ public class Sandwich {
         this.name = name;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -70,11 +71,5 @@ public class Sandwich {
     public static class LunchBuilder{
 
         private LunchBuilder(){}
-
-
-
-
-
     }
-
 }
