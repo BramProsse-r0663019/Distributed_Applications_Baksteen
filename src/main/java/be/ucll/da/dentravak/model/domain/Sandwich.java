@@ -1,17 +1,9 @@
 package be.ucll.da.dentravak.model.domain;
 
-import org.springframework.data.jpa.repository.query.Jpa21Utils;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
-<<<<<<< HEAD
-<<<<<<< HEAD
-import java.util.List;
-=======
->>>>>>> 260df519169edf2c5daba76c5fc4a77f9fa580e6
-=======
->>>>>>> 260df519169edf2c5daba76c5fc4a77f9fa580e6
 import java.util.UUID;
+
 
 @Entity
 @Table(name = "Sandwich")
@@ -24,14 +16,6 @@ public class Sandwich {
     private String name;
     private String ingredients;
     private BigDecimal price;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-//  private List<String> ingredients;
->>>>>>> 260df519169edf2c5daba76c5fc4a77f9fa580e6
-=======
-//  private List<String> ingredients;
->>>>>>> 260df519169edf2c5daba76c5fc4a77f9fa580e6
 
     public Sandwich(){
 
@@ -42,11 +26,6 @@ public class Sandwich {
         this.ingredients = ingredients;
         this.price = price;
     }
-
-//  public Sandwich(String name, double price, List<String> ingredients) {
-//      this.name = name;
-//      this.price = price;
-//  }
 
     public void setIngredients(String ingredients) {
         this.ingredients = ingredients;
@@ -84,16 +63,7 @@ public class Sandwich {
 //    @Convert(converter = JpaJsonConverter.class)
 //    private List<Sandwich>
 
-//    public static class LunchBuilder{
-//
-//        private LunchBuilder(){}
-//
-//
-//
-//    }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     public static class SandwichBuilder{
 
         private String name;
@@ -138,16 +108,4 @@ public class Sandwich {
             return sandwich;
         }
     }
-
-=======
-=======
->>>>>>> 260df519169edf2c5daba76c5fc4a77f9fa580e6
-    public static class LunchBuilder{
-
-        private LunchBuilder(){}
-    }
-<<<<<<< HEAD
->>>>>>> 260df519169edf2c5daba76c5fc4a77f9fa580e6
-=======
->>>>>>> 260df519169edf2c5daba76c5fc4a77f9fa580e6
 }
