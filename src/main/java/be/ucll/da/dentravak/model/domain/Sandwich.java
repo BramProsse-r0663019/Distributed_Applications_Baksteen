@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+
 @Entity
 @Table(name = "Sandwich")
 public class Sandwich {
@@ -15,7 +16,6 @@ public class Sandwich {
     private String name;
     private String ingredients;
     private BigDecimal price;
-//  private List<String> ingredients;
 
     public Sandwich(){
 
@@ -26,11 +26,6 @@ public class Sandwich {
         this.ingredients = ingredients;
         this.price = price;
     }
-
-//  public Sandwich(String name, double price, List<String> ingredients) {
-//      this.name = name;
-//      this.price = price;
-//  }
 
     public void setIngredients(String ingredients) {
         this.ingredients = ingredients;
@@ -64,16 +59,44 @@ public class Sandwich {
         return ingredients;
     }
 
-//    public static class LunchBuilder{
-//
-//        private LunchBuilder(){}
-//
-//
-//
-//    }
+//    @Lob
+//    @Convert(converter = JpaJsonConverter.class)
+//    private List<Sandwich>
 
-    public static class LunchBuilder{
 
-        private LunchBuilder(){}
+    public static class SandwichBuilder{
+
+        private String name;
+        private String ingredients;
+        private BigDecimal price;
+
+        private SandwichBuilder(){}
+
+        public static SandwichBuilder aSandwich(){
+            return new SandwichBuilder();
+        }
+
+        public SandwichBuilder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public SandwichBuilder withIngredients(String ingredients) {
+            this.ingredients = ingredients;
+            return this;
+        }
+
+        public SandwichBuilder withPrice(BigDecimal price) {
+            this.price = price;
+            return this;
+        }
+
+        public Sandwich build(){
+            Sandwich sandwich = new Sandwich();
+            sandwich.name = name;
+            sandwich.ingredients = ingredients;
+            sandwich.price = price;
+            return sandwich;
+        }
     }
 }
