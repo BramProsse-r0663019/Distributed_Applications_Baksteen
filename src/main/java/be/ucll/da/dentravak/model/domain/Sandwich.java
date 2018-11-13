@@ -17,13 +17,13 @@ public class Sandwich {
 
     private String name;
     private String ingredients;
-    private double price;
+    private BigDecimal price;
 
     public Sandwich(){
 
     }
 
-    public Sandwich(String name, double price, String ingredients ) {
+    public Sandwich(String name, BigDecimal price, String ingredients ) {
         this.name = name;
         this.ingredients = ingredients;
         this.price = price;
@@ -49,11 +49,11 @@ public class Sandwich {
         this.name = name;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -61,9 +61,9 @@ public class Sandwich {
         return ingredients;
     }
 
-    @Lob
-    @Convert(converter = JpaJsonConverter.class)
-    private List<Sandwich>
+//    @Lob
+//    @Convert(converter = JpaJsonConverter.class)
+//    private List<Sandwich>
 
 //    public static class LunchBuilder{
 //
