@@ -1,6 +1,10 @@
 package be.ucll.da.dentravak.model.domain;
 
+import org.springframework.data.jpa.repository.query.Jpa21Utils;
+
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -57,6 +61,10 @@ public class Sandwich {
         return ingredients;
     }
 
+    @Lob
+    @Convert(converter = JpaJsonConverter.class)
+    private List<Sandwich>
+
 //    public static class LunchBuilder{
 //
 //        private LunchBuilder(){}
@@ -64,5 +72,50 @@ public class Sandwich {
 //
 //
 //    }
+
+    public static class SandwichBuilder{
+
+        private String name;
+        private String ingredients;
+        private BigDecimal price;
+
+        private SandwichBuilder(){}
+
+        public static SandwichBuilder aSandwich(){
+            return new SandwichBuilder();
+        }
+
+        public SandwichBuilder getName() {
+            return this;
+        }
+
+        public void withName(String name) {
+            this.name = name;
+        }
+
+        public SandwichBuilder getIngredients() {
+            return this;
+        }
+
+        public void withIngredients(String ingredients) {
+            this.ingredients = ingredients;
+        }
+
+        public SandwichBuilder getPrice() {
+            return this;
+        }
+
+        public void withPrice(BigDecimal price) {
+            this.price = price;
+        }
+
+        public Sandwich build(){
+            Sandwich sandwich = new Sandwich();
+            sandwich.name = name;
+            sandwich.ingredients = ingredients;
+            sandwich.price = price;
+            return sandwich;
+        }
+    }
 
 }

@@ -22,8 +22,6 @@ public class Application {
 
             lunchRepository.save(new Sandwich("Broodje gezond", 3.5, "Brood, kaas, hesp, ei, sla"));
             lunchRepository.save(new Sandwich("Smos", 2.8, "Brood, boulet, ei, sla, mayonnaise"));
-
-
         };
     }
 }
