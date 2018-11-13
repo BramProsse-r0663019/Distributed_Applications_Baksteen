@@ -76,28 +76,19 @@ public class Sandwich {
             return new SandwichBuilder();
         }
 
-        public SandwichBuilder getName() {
-            return this;
-        }
-
-        public void withName(String name) {
+        public SandwichBuilder withName(String name) {
             this.name = name;
-        }
-
-        public SandwichBuilder getIngredients() {
             return this;
         }
 
-        public void withIngredients(String ingredients) {
+        public SandwichBuilder withIngredients(String ingredients) {
             this.ingredients = ingredients;
-        }
-
-        public SandwichBuilder getPrice() {
             return this;
         }
 
-        public void withPrice(BigDecimal price) {
+        public SandwichBuilder withPrice(BigDecimal price) {
             this.price = price;
+            return this;
         }
 
         public Sandwich build(){
