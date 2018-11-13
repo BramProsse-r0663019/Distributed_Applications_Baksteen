@@ -4,8 +4,9 @@ import be.ucll.da.dentravak.model.domain.Sandwich;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface LunchRepository extends CrudRepository<Sandwich, Long> {
+import java.util.UUID;
 
+@Repository
+public interface SandwichRepository extends CrudRepository<Sandwich, UUID> {
 
 }
