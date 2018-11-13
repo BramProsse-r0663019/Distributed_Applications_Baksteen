@@ -5,7 +5,10 @@ import org.springframework.data.jpa.repository.query.Jpa21Utils;
 import javax.persistence.*;
 import java.math.BigDecimal;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.List;
+=======
+>>>>>>> 260df519169edf2c5daba76c5fc4a77f9fa580e6
 =======
 >>>>>>> 260df519169edf2c5daba76c5fc4a77f9fa580e6
 import java.util.UUID;
@@ -22,6 +25,10 @@ public class Sandwich {
     private String ingredients;
     private BigDecimal price;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+//  private List<String> ingredients;
+>>>>>>> 260df519169edf2c5daba76c5fc4a77f9fa580e6
 =======
 //  private List<String> ingredients;
 >>>>>>> 260df519169edf2c5daba76c5fc4a77f9fa580e6
@@ -86,6 +93,7 @@ public class Sandwich {
 //    }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public static class SandwichBuilder{
 
         private String name;
@@ -132,9 +140,14 @@ public class Sandwich {
     }
 
 =======
+=======
+>>>>>>> 260df519169edf2c5daba76c5fc4a77f9fa580e6
     public static class LunchBuilder{
 
         private LunchBuilder(){}
     }
+<<<<<<< HEAD
+>>>>>>> 260df519169edf2c5daba76c5fc4a77f9fa580e6
+=======
 >>>>>>> 260df519169edf2c5daba76c5fc4a77f9fa580e6
 }
