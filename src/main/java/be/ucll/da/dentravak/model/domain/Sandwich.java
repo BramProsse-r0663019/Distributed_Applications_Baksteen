@@ -12,14 +12,8 @@ public class Sandwich {
     private UUID id;
 
     private String name;
-//    private List<String> ingredients = new ArrayList<>();
     private String ingredients;
     private double price;
-
-//    public Sandwich(String name, double price, List<String> ingredients) {
-//        this.name = name;
-//        this.price = price;
-//    }
 
     public Sandwich(){
 
@@ -59,22 +53,16 @@ public class Sandwich {
         this.price = price;
     }
 
-//    public List<String> getIngredients() {
-//        return ingredients;
-//    }
-//
-//    public void setIngredients(List<String> ingredients) {
-//        this.ingredients = ingredients;
-//    }
-
-    public static class LunchBuilder{
-
-        private LunchBuilder(){}
-
-
-
-
-
+    public String getIngredients() {
+        return ingredients;
     }
+
+//    public static class LunchBuilder{
+//
+//        private LunchBuilder(){}
+//
+//
+//
+//    }
 
 }
