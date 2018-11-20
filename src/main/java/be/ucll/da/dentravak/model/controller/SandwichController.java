@@ -19,6 +19,7 @@ public class SandwichController {
     }
 
     //Default = /sandwiches & GET method
+    @CrossOrigin
     @RequestMapping(value = "/sandwiches")
     public List<Sandwich> sandwiches() {
         return (List<Sandwich>) sandwichRepository.findAll();

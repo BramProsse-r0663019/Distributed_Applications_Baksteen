@@ -1,0 +1,14 @@
+[
+    {
+        "id":"1",
+        "name": "test",
+        "ingredients": "kaas en hesp",
+        "price": 3.50
+    },
+    {
+        "id":"2",
+        "name": "smos",
+        "ingredients": "groenten",
+        "price": 4.35
+    }
+]
