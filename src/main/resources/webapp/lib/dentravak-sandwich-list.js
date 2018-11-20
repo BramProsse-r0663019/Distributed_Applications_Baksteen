@@ -1,38 +1,37 @@
 class DenTravakSandwichList extends HTMLElement {
 
-    constructor(){
+    constructor() {
         super();
         this.connectedCallBack();
     }
 
-    connectedCallBack(){
+    connectedCallBack() {
         this.initShadowDom();
     }
-    
-    initShadowDom(){
-        let shadowRoot = this.attachShadow({mode:'open'});
-        shadowRoot.innerHTML = this.template;
-        this.setSandwiches();
+
+    initShadowDom() {
+        let shadowRoot = this.attachShadow({mode: 'open'});
+
+        this.setSandwiches(shadowRoot);
     }
 
-    setSandwiches(){
-        let sandwichlist = document.getElementById('sandwichlist');
+    setSandwiches(sr) {
+        var lis = document.createElement('ul');
+        lis.setAttribute('id', 'sandwichlist');
 
-        fetch('http://http://localhost:8080/sandwiches')
-        .then(res => res.json())
-        .then(function(res){
-            for(var r in res){
-                
+        fetch("http://localhost:8080/sandwiches", {mode: 'cors'})
+            .then(res => res.json())
+            .then(function (res) {
+            for (var r in res) {
+                var lisit = document.createElement('li');
+                lisit.innerText = res[r].name + ' (' + res[r].ingredients + ') ' + res[r].price;
+                lis.appendChild(lisit);
             }
-            let child = document.createElement('li')
-            sandwichlist.appendChild(document.createTextNode('<li>' + res.name + '<li'))
+
         });
 
-        
-    }
 
-    get template(){
-        return `<ul id="sandwichlist"></ul>`;
+        sr.appendChild(lis);
     }
 
 }
