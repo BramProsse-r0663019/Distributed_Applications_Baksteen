@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "/sandwiches", produces = "application/json")
+@RequestMapping(value = "", produces = "application/json")
 public class SandwichController {
 
     private final SandwichRepository sandwichRepository;
@@ -18,39 +19,57 @@ public class SandwichController {
     }
 
     //Default = /sandwiches & GET method
-    @RequestMapping()
+    @RequestMapping(value = "/sandwiches")
     public List<Sandwich> sandwiches() {
         return (List<Sandwich>) sandwichRepository.findAll();
     }
 
-    //Url "/sandwiches/find?name=..."
-    @RequestMapping(value = "/find", method = RequestMethod.POST)
+    @RequestMapping(value = "/sandwich/{id}")
     //Sandwich meegeven in body en niet in path (@PathVariable)
-    public Sandwich sandwich(@RequestBody String name) {
-        List<Sandwich> sandwiches = sandwiches();
-        for (Sandwich sandwich : sandwiches) {
+    public Sandwich sandwich(@PathVariable UUID id) {
+        Optional<Sandwich> maybeFoundSandwich = sandwichRepository.findById(id);
+        if(maybeFoundSandwich.isPresent()) {
+            Sandwich foundSandwich = maybeFoundSandwich.get();
+            return foundSandwich;
+        }
+        throw new SandwichNotFoundException();
+    }
+
+    @RequestMapping(value = "/sandwich/name/{name}")
+    //Sandwich meegeven in body en niet in path (@PathVariable)
+    public Sandwich sandwichByName(@PathVariable String name) {
+        for (Sandwich sandwich : sandwiches()) {
             if (sandwich.getName().toLowerCase().equals(name.toLowerCase())) {
                 return  sandwich;
             }
         }
-        //Geen sandwich gevonden dus lege returnen
-        return new Sandwich();
+        throw new SandwichNotFoundException();
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public void saveSandwich(@RequestBody Sandwich sandwich) {
+    @RequestMapping(value = "/sandwich", method = RequestMethod.POST)
+    public Sandwich saveSandwich(@RequestBody Sandwich sandwich) {
         sandwichRepository.save(sandwich);
+        return sandwichByName(sandwich.getName());
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public void updateSandwich(@RequestBody Sandwich sandwich) {
+    @RequestMapping(value = "/sandwich/{id}", method = RequestMethod.PUT)
+    public Sandwich updateSandwich(@PathVariable UUID id, @RequestBody Sandwich sandwich) {
+        //Als deze id's verschillen -> waarsch hacker
+        if (!id.equals(sandwich.getId())) {
+            throw new SandwichNotFoundException();
+        }
         //Optional want kan dat Sandwich niet aanwezig is
-        Optional<Sandwich> maybeFoundSandwich = sandwichRepository.findById(sandwich.getId());
+        Optional<Sandwich> maybeFoundSandwich = sandwichRepository.findById(id);
         if(maybeFoundSandwich.isPresent()) {
             Sandwich foundSandwich = maybeFoundSandwich.get();
             foundSandwich.setName(sandwich.getName());
             foundSandwich.setPrice(sandwich.getPrice());
             foundSandwich.setIngredients(sandwich.getIngredients());
+            //Override huidige data (update)
+            sandwichRepository.save(foundSandwich);
+        } else {
+            throw new SandwichNotFoundException();
         }
+        return sandwich(sandwich.getId());
     }
 }
