@@ -2,6 +2,7 @@ package be.ucll.da.dentravak.model.domain;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.UUID;
 
 
@@ -48,9 +49,10 @@ public class Sandwich {
     }
 
     public BigDecimal getPrice() {
-        return price;
+        return this.price;
     }
 
+    //Price met double precision
     public void setPrice(BigDecimal price) {
         this.price = price;
     }

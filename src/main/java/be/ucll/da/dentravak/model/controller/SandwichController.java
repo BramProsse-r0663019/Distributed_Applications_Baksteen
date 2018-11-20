@@ -4,12 +4,14 @@ import be.ucll.da.dentravak.model.db.SandwichRepository;
 import be.ucll.da.dentravak.model.domain.Sandwich;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "", produces = "application/json")
+@RequestMapping(value = "/sandwiches", produces = "application/json")
 public class SandwichController {
 
     private final SandwichRepository sandwichRepository;
@@ -20,12 +22,12 @@ public class SandwichController {
 
     //Default = /sandwiches & GET method
     @CrossOrigin
-    @RequestMapping(value = "/sandwiches")
+    @RequestMapping(value = "")
     public List<Sandwich> sandwiches() {
         return (List<Sandwich>) sandwichRepository.findAll();
     }
 
-    @RequestMapping(value = "/sandwich/{id}")
+    @RequestMapping(value = "/{id}")
     //Sandwich meegeven in body en niet in path (@PathVariable)
     public Sandwich sandwich(@PathVariable UUID id) {
         Optional<Sandwich> maybeFoundSandwich = sandwichRepository.findById(id);
@@ -36,7 +38,7 @@ public class SandwichController {
         throw new SandwichNotFoundException();
     }
 
-    @RequestMapping(value = "/sandwich/name/{name}")
+    @RequestMapping(value = "/name/{name}")
     //Sandwich meegeven in body en niet in path (@PathVariable)
     public Sandwich sandwichByName(@PathVariable String name) {
         for (Sandwich sandwich : sandwiches()) {
@@ -47,13 +49,13 @@ public class SandwichController {
         throw new SandwichNotFoundException();
     }
 
-    @RequestMapping(value = "/sandwich", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public Sandwich saveSandwich(@RequestBody Sandwich sandwich) {
         sandwichRepository.save(sandwich);
         return sandwichByName(sandwich.getName());
     }
 
-    @RequestMapping(value = "/sandwich/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public Sandwich updateSandwich(@PathVariable UUID id, @RequestBody Sandwich sandwich) {
         //Als deze id's verschillen -> waarsch hacker
         if (!id.equals(sandwich.getId())) {
