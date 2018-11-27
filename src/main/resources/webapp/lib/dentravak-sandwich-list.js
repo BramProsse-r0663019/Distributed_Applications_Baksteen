@@ -14,14 +14,11 @@ class DenTravakSandwichList extends DenTravakAbstractElement {
         //sandwichesList.innerHTML = ``;
         sandwiches.forEach(sandwich => {
             let sandwichEl = htmlToElement(this.getSandwichTemplate(sandwich));
-            sandwichEl.addEventListener('click', this.checkoutButtonClick(sandwich));
+            sandwichEl.addEventListener('click', () => this.app().dispatchEvent(new CustomEvent('checkout', {detail: sandwich})));
             sandwichesList.appendChild(sandwichEl);
         });
     }
 
-    checkoutButtonClick(sandwich){
-        this.app().dispatchEvent(new CustomEvent('checkout', {detail:sandwich}))
-    }
 
     get template() {
         return `

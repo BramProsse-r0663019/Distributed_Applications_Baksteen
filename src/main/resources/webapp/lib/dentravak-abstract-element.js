@@ -8,7 +8,8 @@ export default class DenTravakAbstractElement extends HTMLElement{
         if(this.shadowRoot) return;
         let shadowRoot = this.attachShadow({mode: 'open'});
         shadowRoot.innerHTML = this.template;
-        // shadowRoot.insertBefore(document.getElementById('styletemplate').content.cloneNode(true), shadowRoot.childNodes[0]);
+        shadowRoot.insertBefore(document.getElementById('styletemplate').content.cloneNode(true), shadowRoot.childNodes[0]);
+        $(shadowRoot).bootstrapMaterialDesign();
     }
 
     app() {
@@ -24,6 +25,6 @@ export default class DenTravakAbstractElement extends HTMLElement{
     }
 
     get template() {
-        throw "You did not define a Template!!"
+        throw "You did not define a Template!!";
     }
 }

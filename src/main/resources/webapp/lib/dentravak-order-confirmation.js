@@ -30,4 +30,4 @@ class DenTravakSandwichOrderConfirmation extends DenTravakAbstractElement {
     }
 }
 
-customElements.define('dt-order-confirmation', DenTravakSandwichesOrderConfirmation);
+customElements.define('dt-order-confirmation', DenTravakSandwichOrderConfirmation);

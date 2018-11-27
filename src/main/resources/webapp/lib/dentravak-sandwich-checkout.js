@@ -16,12 +16,17 @@ class DenTravakSandwichCheckout extends DenTravakAbstractElement{
 
 
     initEventListeners(){
-        this.addEventListener('order', (e) => this.orderSandwich());
+        this.byId('order-button').addEventListener('click', e => this.orderSandwich());
         this.byId('back-button').addEventListener('click', e => this.app().showSandwichList());
     }
 
     orderSandwich(){
         //fetch to back-end
+        let order = {};
+        order.sandwichId = this.sandwich.id;
+        order.name = this.sandwich.
+        order.breadType = this.byCss('input[name="typeBrood"]:checked').value;
+
         this.app().dispatchEvent(new CustomEvent('order-succeeded', {detail: this.sandwich}));
     }
 

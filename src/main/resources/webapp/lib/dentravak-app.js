@@ -1,19 +1,19 @@
 import DenTravakAbstractElement from './dentravak-abstract-element.js';
 import './dentravak-sandwich-list.js';
 import './dentravak-sandwich-checkout.js';
-import './utils.js';
+import './dentravak-order-confirmation.js';
 
 class DenTravakApp extends DenTravakAbstractElement{
 
-    connectedCallBack(){
-        super.connectedCallBack();
+    connectedCallback(){
+        super.connectedCallback();
         this.showSandwichList();
         this.initEventListeners();
     }
 
     initEventListeners() {
-        this.addEventListener('show-sandwich-list', (e) => this.showSandwichList());
         this.addEventListener('checkout', (e) => this.showCheckoutPage(e.detail));
+        this.addEventListener('show-sandwich-list', (e) => this.showSandwichList());
         this.addEventListener('order-succeeded', (e) => this.showOrderConfirmationPage(e.detail));
     }
     
