@@ -1,37 +1,61 @@
-class DenTravakSandwichList extends HTMLElement {
+import DenTravakAbstractElement from './dentravak-abstract-element.js';
 
-    constructor() {
-        super();
-        this.connectedCallBack();
+class DenTravakSandwichList extends DenTravakAbstractElement {
+
+    connectedCallback() {
+        super.connectedCallback();
+        fetch('http://localhost:8080/sandwiches')
+            .then(resp => resp.json())
+            .then(json => this.updateSandwichesList(json));
     }
 
-    connectedCallBack() {
-        this.initShadowDom();
-    }
-
-    initShadowDom() {
-        let shadowRoot = this.attachShadow({mode: 'open'});
-
-        this.setSandwiches(shadowRoot);
-    }
-
-    setSandwiches(sr) {
-        var lis = document.createElement('ul');
-        lis.setAttribute('id', 'sandwichlist');
-
-        fetch("http://localhost:8080/sandwiches", {mode: 'cors'})
-            .then(res => res.json())
-            .then(function (res) {
-            for (var r in res) {
-                var lisit = document.createElement('li');
-                lisit.innerText = res[r].name + ' (' + res[r].ingredients + ') ' + res[r].price;
-                lis.appendChild(lisit);
-            }
-
+    updateSandwichesList(sandwiches) {
+        let sandwichesList = this.byId('sandwiches');
+        //sandwichesList.innerHTML = ``;
+        sandwiches.forEach(sandwich => {
+            let sandwichEl = htmlToElement(this.getSandwichTemplate(sandwich));
+            sandwichEl.addEventListener('click', this.checkoutButtonClick(sandwich));
+            sandwichesList.appendChild(sandwichEl);
         });
+    }
 
+    checkoutButtonClick(sandwich){
+        this.app().dispatchEvent(new CustomEvent('checkout', {detail:sandwich}))
+    }
 
-        sr.appendChild(lis);
+    get template() {
+        return `
+            <style>
+                div.dt-sandwich-info {
+                    margin-left: auto;
+                }
+            </style>
+            <div class="animate">
+                <h3>Welkom bij den Travak</h3>
+                <h4>Kies je broodje</h4>
+                <div>
+                <ul id="sandwiches" class="list-group">
+                    </ul>
+                </div>
+            </div>
+        `;
+    }
+
+    getSandwichTemplate(sandwich) {
+        return `
+            <a class="list-group-item" id="checkout">
+                <button type="button" class="btn btn-primary bmd-btn-fab">
+                    ${sandwich.name.charAt(0)}
+                </button>
+                <div class="bmd-list-group-col">
+                    <p class="list-group-item-heading">${sandwich.name}</p>
+                    <p class="list-group-item-text">${sandwich.ingredients}</p>
+                </div>
+                <div class="dt-sandwich-info">
+                    <p class="list-group-item-text">${sandwich.price}</p>
+                </div>
+            </a>
+        `;
     }
 
 }
