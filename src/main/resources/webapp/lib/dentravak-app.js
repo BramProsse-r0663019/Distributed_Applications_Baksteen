@@ -43,6 +43,7 @@ class DenTravakApp extends DenTravakAbstractElement{
             <style>
                 .hidden {display: none;}
             </style>
+            <a href="http://localhost:8081/admin.html">Login</a>
             <dt-sandwich-list></dt-sandwich-list>
             <dt-sandwich-checkout></dt-sandwich-checkout>
             <dt-order-confirmation></dt-order-confirmation>

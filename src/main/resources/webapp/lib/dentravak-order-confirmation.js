@@ -12,21 +12,22 @@ class DenTravakSandwichOrderConfirmation extends DenTravakAbstractElement {
     }
 
     initEventListeners() {
+        //show-sandwich-list = id of button -> see template
         this.byId('show-sandwich-list').addEventListener('click', e => this.app().dispatchEvent(new Event('show-sandwich-list')));
     }
 
     get template() {
         return `
-            <style>
-            </style>
+        <style>
+        </style>
+        <div>
             <div>
-                <div>
-                    <h3>Welcome to Den Travak</h3>
-                    <button id="show-sandwich-list" type="button">New order</button>
-                </div>
-                <h4>We just received your order, thanks!</h4>
+                <h3>Welcome to Den Travak</h3>
+                <button id="show-sandwich-list">New order</button>
             </div>
-            `;
+            <h4>We just received your order, thanks!</h4>
+        </div>
+        `;
     }
 }
 

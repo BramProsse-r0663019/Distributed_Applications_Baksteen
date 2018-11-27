@@ -5,6 +5,7 @@ import be.ucll.da.dentravak.model.domain.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class OrderController {
         return (List<Order>) orderRepository.findAll();
     }
 
+    @CrossOrigin
     @RequestMapping(value = "?date={creationdate}")
     public List<Order> ordersByDate(@PathVariable LocalDate creationDate) {
         List<Order> allOrders = orders();
@@ -37,19 +39,23 @@ public class OrderController {
         return orders;
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/today")
     public List<Order> ordersOfToday() {
         List<Order> allOrders = orders();
         List<Order> todaysOrders = new ArrayList<>();
 
         for (Order order : allOrders) {
-            if(order.getCreationDate().equals(LocalDate.now())) {
+            //Check for orders today
+            if(order.getCreationDate().getYear() == LocalDate.now().getYear() && order.getCreationDate().getMonth() == LocalDate.now().getMonth() && order.getCreationDate().getDayOfYear() == LocalDate.now().getDayOfYear()) {
                 todaysOrders.add(order);
             }
+            
         }
         return todaysOrders;
     }
 
+    @CrossOrigin
     @RequestMapping(value = "", method = RequestMethod.POST)
     public Order saveOrder(@RequestBody Order order) {
         orderRepository.save(order);

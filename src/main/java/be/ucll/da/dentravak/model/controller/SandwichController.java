@@ -26,6 +26,7 @@ public class SandwichController {
         return (List<Sandwich>) sandwichRepository.findAll();
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/{id}")
     //Sandwich meegeven in body en niet in path (@PathVariable)
     public Sandwich sandwich(@PathVariable UUID id) {
@@ -37,6 +38,7 @@ public class SandwichController {
         throw new SandwichNotFoundException();
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/name/{name}")
     //Sandwich meegeven in body en niet in path (@PathVariable)
     public Sandwich sandwichByName(@PathVariable String name) {
@@ -48,12 +50,14 @@ public class SandwichController {
         throw new SandwichNotFoundException();
     }
 
+    @CrossOrigin
     @RequestMapping(value = "", method = RequestMethod.POST)
     public Sandwich saveSandwich(@RequestBody Sandwich sandwich) {
         sandwichRepository.save(sandwich);
         return sandwichByName(sandwich.getName());
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public Sandwich updateSandwich(@PathVariable UUID id, @RequestBody Sandwich sandwich) {
         //Als deze id's verschillen -> waarsch hacker
