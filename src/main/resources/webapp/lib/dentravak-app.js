@@ -18,36 +18,38 @@ class DenTravakApp extends DenTravakAbstractElement{
     }
     
     showSandwichList(){
-        this.byCss(`dt-sandwich-list`).classList.add('hidden');
+        this.byCss(`dt-sandwich-list`).classList.remove('hidden');
         this.byCss(`dt-sandwich-checkout`).classList.add('hidden');
-        // this.byCss(`travak-sandwiches-order-confirmation`).classList.add('hidden');
+        this.byCss(`dt-order-confirmation`).classList.add('hidden');
     }
 
     showCheckoutPage(sandwich) {
         this.byCss(`dt-sandwich-checkout`).init(sandwich);
         this.byCss(`dt-sandwich-list`).classList.add('hidden');
         this.byCss(`dt-sandwich-checkout`).classList.remove('hidden');
-        // this.byCss(`travak-sandwiches-order-confirmation`).classList.add('hidden');
+        this.byCss(`dt-order-confirmation`).classList.add('hidden');
     }
 
     showOrderConfirmationPage(sandwich) {
-        // this.byCss(`travak-sandwiches-order-confirmation`).init(sandwich);
-        // this.byCss(`dt-sandwich-list`).classList.add('hidden');
-        // this.byCss(`dt-sandwich-checkout`).classList.add('hidden');
-        // this.byCss(`travak-sandwiches-order-confirmation`).classList.remove('hidden');
+        this.byCss(`dt-order-confirmation`).init(sandwich);
+        this.byCss(`dt-sandwich-list`).classList.add('hidden');
+        this.byCss(`dt-sandwich-checkout`).classList.add('hidden');
+        this.byCss(`dt-order-confirmation`).classList.remove('hidden');
     }
 
+    //Defining a custom element for each function
     get template() {
         return `
             <style>
                 .hidden {display: none;}
             </style>
             <dt-sandwich-list></dt-sandwich-list>
-            <dt-sandwich-checkout class="hidden"></dt-sandwich-checkout>
+            <dt-sandwich-checkout></dt-sandwich-checkout>
+            <dt-order-confirmation></dt-order-confirmation>
         `;
     }
 
 }
 
-
+//Our custom element on index.html is called 'dt-app' -> we define it here
 customElements.define('dt-app', DenTravakApp);

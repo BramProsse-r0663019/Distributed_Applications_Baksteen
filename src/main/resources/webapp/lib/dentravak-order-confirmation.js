@@ -16,8 +16,7 @@ class DenTravakSandwichOrderConfirmation extends DenTravakAbstractElement {
     }
 
     get template() {
-        return
-            `
+        return `
             <style>
             </style>
             <div>
