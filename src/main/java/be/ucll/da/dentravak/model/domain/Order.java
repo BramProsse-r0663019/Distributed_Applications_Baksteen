@@ -12,16 +12,19 @@ public class Order {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private UUID id;
-    private UUID sandwichId;
 
+    private UUID sandwichId;
     private String name;
     private BreadType breadType;
     private LocalDateTime creationDate;
     private BigDecimal price;
     private String mobilePhoneNumber;
 
+    private boolean printed;
+
     public Order() {
         this.creationDate = LocalDateTime.now();
+        this.printed = false;
     }
 
     public Order(UUID sandwichId, BreadType breadType, String name, BigDecimal price, String mobilePhoneNumber) {
@@ -30,6 +33,7 @@ public class Order {
         this.breadType = breadType;
         this.creationDate = LocalDateTime.now();
         this.price = price;
+        this.printed = false;
     }
 
     public UUID getId() {
@@ -88,6 +92,15 @@ public class Order {
         this.creationDate = creationDate;
     }
 
+    public boolean isPrinted() {
+        return printed;
+    }
+
+    public void setPrinted(boolean printed) {
+        this.printed = printed;
+    }
+
+    //Normally put in testclass
     public static class OrderBuilder{
 
         private UUID sandwichId;

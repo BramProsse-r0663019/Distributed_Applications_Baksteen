@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.UUID;
 
-
 @Entity
 @Table(name = "Sandwich")
 public class Sandwich {
@@ -19,7 +18,6 @@ public class Sandwich {
     private BigDecimal price;
 
     public Sandwich(){
-
     }
 
     public Sandwich(String name, BigDecimal price, String ingredients ) {
@@ -52,7 +50,6 @@ public class Sandwich {
         return this.price;
     }
 
-    //Price met double precision
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
@@ -61,11 +58,7 @@ public class Sandwich {
         return ingredients;
     }
 
-//    @Lob
-//    @Convert(converter = JpaJsonConverter.class)
-//    private List<Sandwich>
-
-
+    //Normally put in testclass
     public static class SandwichBuilder{
 
         private String name;

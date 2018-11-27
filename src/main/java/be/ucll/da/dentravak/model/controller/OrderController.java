@@ -37,6 +37,19 @@ public class OrderController {
         return orders;
     }
 
+    @RequestMapping(value = "/today")
+    public List<Order> ordersOfToday() {
+        List<Order> allOrders = orders();
+        List<Order> todaysOrders = new ArrayList<>();
+
+        for (Order order : allOrders) {
+            if(order.getCreationDate().equals(LocalDate.now())) {
+                todaysOrders.add(order);
+            }
+        }
+        return todaysOrders;
+    }
+
     @RequestMapping(value = "", method = RequestMethod.POST)
     public Order saveOrder(@RequestBody Order order) {
         orderRepository.save(order);
