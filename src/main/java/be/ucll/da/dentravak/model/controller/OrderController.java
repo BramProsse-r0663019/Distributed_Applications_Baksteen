@@ -5,7 +5,6 @@ import be.ucll.da.dentravak.model.domain.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,8 +48,7 @@ public class OrderController {
             //Check for orders today
             if(order.getCreationDate().getYear() == LocalDate.now().getYear() && order.getCreationDate().getMonth() == LocalDate.now().getMonth() && order.getCreationDate().getDayOfYear() == LocalDate.now().getDayOfYear()) {
                 todaysOrders.add(order);
-            }
-            
+            }   
         }
         return todaysOrders;
     }
@@ -68,7 +66,6 @@ public class OrderController {
                 orderRepository.save(order);
                 todaysOrders.add(order);
             }
-
         }
         return todaysOrders;
     }

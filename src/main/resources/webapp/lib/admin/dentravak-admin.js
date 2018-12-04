@@ -6,8 +6,16 @@ class DenTravakAdmin extends DenTravakAbstractElement{
 
     connectedCallback(){
         super.connectedCallback();
-        this.showLoginPage();
         this.initEventListeners();
+
+        //Check here before showing loginPage
+        var cookies = document.cookie;
+        //If cookies is empty -> not yet logged in
+        if (cookies == "") {
+            this.showLoginPage();
+        } else {
+            this.showOrdersOfToday();
+        }
     }
 
     initEventListeners() {
