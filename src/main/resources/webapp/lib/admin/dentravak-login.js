@@ -17,6 +17,8 @@ class DenTravakLogin extends DenTravakAbstractElement {
         let password = this.byCss('input[name="password"]').value;
 
         if (username == "admin" && password == "t") {
+            //Adding cookie for logged in
+            document.cookie = "loggedIn=yes";
             //Event in dentravak-admin throwen
             document.querySelector(`dt-admin`).dispatchEvent(new CustomEvent('show-orders-of-today'));
         }

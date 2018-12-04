@@ -30,12 +30,11 @@ class DenTravakOrdersOfToday extends DenTravakAbstractElement {
     }
 
     createCSVFile(orders){
-        var csv = 'id,sandwichId,name,breadType,createionDate,price,mobilePhoneNumber,printed\n';
+        var csv = 'id,sandwichId,name,breadType,creationDate,price,mobilePhoneNumber,printed\n';
 
         orders.forEach(order => {
             csv += order.id + ',' + order.sandwichId + ',' + order.breadType + ',' + order.creationDate + ',' + order.price + ',' + order.mobilePhoneNumber + ',' + order.printed;
             csv += "\n";
-
         });
 
         var hiddenElement = document.createElement('a');
@@ -43,8 +42,6 @@ class DenTravakOrdersOfToday extends DenTravakAbstractElement {
         hiddenElement.target = '_blank';
         hiddenElement.download = 'todaysOrders.csv';
         hiddenElement.click();
-
-
     }
 
     get template() {
