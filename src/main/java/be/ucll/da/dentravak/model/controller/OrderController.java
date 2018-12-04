@@ -56,6 +56,24 @@ public class OrderController {
     }
 
     @CrossOrigin
+    @RequestMapping(value = "/print")
+    public List<Order> printOrderOfToday() {
+        List<Order> allOrders = orders();
+        List<Order> todaysOrders = new ArrayList<>();
+
+        for (Order order : allOrders) {
+            //Check for orders today
+            if(order.getCreationDate().getYear() == LocalDate.now().getYear() && order.getCreationDate().getMonth() == LocalDate.now().getMonth() && order.getCreationDate().getDayOfYear() == LocalDate.now().getDayOfYear()) {
+                order.setPrinted(true);
+                orderRepository.save(order);
+                todaysOrders.add(order);
+            }
+
+        }
+        return todaysOrders;
+    }
+
+    @CrossOrigin
     @RequestMapping(value = "", method = RequestMethod.POST)
     public Order saveOrder(@RequestBody Order order) {
         orderRepository.save(order);
