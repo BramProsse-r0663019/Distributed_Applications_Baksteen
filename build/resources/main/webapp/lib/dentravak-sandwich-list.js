@@ -1,40 +1,58 @@
-class DenTravakSandwichList extends HTMLElement {
+import DenTravakAbstractElement from './dentravak-abstract-element.js';
 
-    constructor() {
-        super();
-        this.connectedCallBack();
+class DenTravakSandwichList extends DenTravakAbstractElement {
+
+    //Get Sandwiches via REST from backend
+    connectedCallback() {
+        super.connectedCallback();
+        fetch('http://localhost:8080/sandwiches')
+            .then(resp => resp.json())
+            .then(json => this.updateSandwichesList(json));
     }
 
-    connectedCallBack() {
-        this.initShadowDom();
-    }
-
-    initShadowDom() {
-        let shadowRoot = this.attachShadow({mode: 'open'});
-
-        this.setSandwiches(shadowRoot);
-    }
-
-    setSandwiches(sr) {
-        var lis = document.createElement('ul');
-        lis.setAttribute('id', 'sandwichlist');
-
-        fetch("http://localhost:8080/sandwiches", {mode: 'cors'})
-            .then(res => res.json())
-            .then(function (res) {
-            for (var r in res) {
-                var lisit = document.createElement('li');
-                lisit.innerText = res[r].name + ' (' + res[r].ingredients + ') ' + res[r].price;
-                lis.appendChild(lisit);
-            }
-
+    //Show all breads
+    updateSandwichesList(sandwiches) {
+        let sandwichesList = this.byId('sandwiches');
+        sandwiches.forEach(sandwich => {
+            //Use template for each bread
+            let sandwichEl = htmlToElement(this.getSandwichTemplate(sandwich));
+            sandwichEl.addEventListener('click', () => this.app().dispatchEvent(new CustomEvent('checkout', {detail: sandwich})));
+            sandwichesList.appendChild(sandwichEl);
         });
-
-
-        sr.appendChild(lis);
     }
 
-}
+    //Base template where all 
+    get template() {
+        return `
+            <style>
+                div.dt-sandwich-info {
+                    margin-left: auto;
+                }
+            </style>
+            <div class="animate">
+                <h3>Welcome at Den Travak</h3>
+                <h5>Choose your delicious sandwich</h5>
+                <div>
+                    <ul id="sandwiches" class="list-group">
+                    </ul>
+                </div>
+            </div>
+        `;
+    }
 
+    getSandwichTemplate(sandwich) {
+        return `
+            <a class="list-group-item" id="checkout">
+                <div class="bmd-list-group-col">
+                    <p class="list-group-item-heading">${sandwich.name}</p>
+                    <p class="list-group-item-text">${sandwich.ingredients}</p>
+                </div>
+                <div class="dt-sandwich-info">
+                    <p class="list-group-item-text">€ ${sandwich.price}</p>
+                </div>
+            </a>
+        `;
+    }
+}
 
 customElements.define('dt-sandwich-list', DenTravakSandwichList);
