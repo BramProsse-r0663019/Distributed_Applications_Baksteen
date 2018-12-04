@@ -47,6 +47,13 @@ class DenTravakOrdersOfToday extends DenTravakAbstractElement {
     get template() {
         return `
             <style>
+                h3 {
+                    margin-top: 20px;
+                }
+                h5 {
+                    margin-top: 50px;
+                    margin-bottom: 20px;
+                }
                 div.dt-order-info {
                     margin-left: auto;
                 }
@@ -56,22 +63,33 @@ class DenTravakOrdersOfToday extends DenTravakAbstractElement {
                 table th {
                     border-bottom: solid;
                 }
+                #printButton {
+                    margin-top: 20px;
+                }
+                #printButton:hover {
+                    background-color: #C8ECFD !important;
+                    transition: background-color 1.5s, color 1.5s;
+                }
             </style>
             <div class="animate">
                 <h3>Den Travak</h3>
                 <h5>All the orders for today!</h5>
                 <div>
-                    <table id="orders">
-                        <tr>
-                            <th>Sandwich name</th>
-                            <th>Breadtype</th> 
-                            <th>Price</th>
-                            <th>Phone number</th>
-                            <th>Printed</th>
-                        </tr>
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Sandwich name</th>
+                                <th>Breadtype</th> 
+                                <th>Price</th>
+                                <th>Phone number</th>
+                                <th>Printed</th>
+                            </tr>
+                        <thead>
+                        <tbody id="orders">
+                        </tbody>
                     </table>
                 </div>
-                <button id="printButton">Print all orders</button>
+                <button class="btn btn-info active" id="printButton">Print all orders</button>
             </div>
         `;
     }

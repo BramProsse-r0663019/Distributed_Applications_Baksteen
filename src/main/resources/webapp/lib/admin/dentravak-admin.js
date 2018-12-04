@@ -36,8 +36,16 @@ class DenTravakAdmin extends DenTravakAbstractElement{
         return `
             <style>
                 .hidden {display: none;}
+                #back-button {
+                    border-radius: 50px;
+                    height: 50px;
+                }
+                #back-button:hover {
+                    background-color: #C8ECFD !important;
+                    transition: background-color 1.5s;
+                }
             </style>
-            <a href="http://localhost:8081/index.html">Back</a>
+            <a id="back-button" class="btn btn-info" href="http://localhost:8081/index.html">Back</a>
             <dt-login></dt-login>
             <dt-orders-of-today></dt-orders-of-today>
         `;
