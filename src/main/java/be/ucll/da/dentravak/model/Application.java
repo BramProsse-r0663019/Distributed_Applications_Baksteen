@@ -9,10 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+//import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
 import java.math.BigDecimal;
 
 @SpringBootApplication
+//@EnableDiscoveryClient
 public class Application {
 
     @Autowired SandwichRepository sandwichRepository;
@@ -32,5 +39,19 @@ public class Application {
             //orderRepository.save(new Order(BreadType.BOTERHAMMEKES, "Smos", BigDecimal.valueOf(2.8)));
             //orderRepository.save(Order.OrderBuilder.aOrder().withBreadType(BreadType.TURKISH_BREAD).withName("Broodje gezond").withPrice(BigDecimal.valueOf(3.5)).build());
         };
+    }
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+
+    @Configuration
+    public class WebConfig implements WebMvcConfigurer {
+
+        @Override
+        public void addCorsMappings(CorsRegistry registry) {
+            registry.addMapping("/**");
+        }
     }
 }
