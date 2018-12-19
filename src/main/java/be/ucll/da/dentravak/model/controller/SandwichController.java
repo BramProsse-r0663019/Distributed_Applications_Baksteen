@@ -61,6 +61,8 @@ public class SandwichController {
             return allSandwiches;
         } catch (ServiceUnavailableException e) {
             return (List<Sandwich>) sandwichRepository.findAll();
+        } catch(NullPointerException e){
+            return (List<Sandwich>) sandwichRepository.findAll();
         }
     }
 
