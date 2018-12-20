@@ -1,6 +1,27 @@
 spring:
   application:
     name: dentravak
+  datasource:
+    url: jdbc:h2:mem:dentravak;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    platform: 'h2'
+    username: 'sa'
+    password: ''
+    driverClassName: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: false
+        use_sql_comments: false
+        format_sql: false
+  h2:
+    console:
+      enabled: true
+      path: /console
+      trace: false
+      web-allow-others: false
   cloud:
     consul:
       host: consul
@@ -13,37 +34,3 @@ server:
   port: 8080
   servlet:
     context-path: /den-travak
-
-#      discovery:
-#        instanceId: ${spring.application.name}:${random.value}
-#        healthCheckPath: /health-check
-#        healthCheckInterval: 20s
-
-
-###
-#   Database Settings
-###
-spring.datasource.url=jdbc:h2:mem:dentravak;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-spring.datasource.platform=h2
-spring.datasource.username = sa
-spring.datasource.password =
-spring.datasource.driverClassName = org.h2.Driver
-spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
-
-###
-#   H2 Settings
-###
-spring.h2.console.enabled=true
-spring.h2.console.path=/console
-spring.h2.console.settings.trace=false
-spring.h2.console.settings.web-allow-others=false
-
-###
-#   Hibernate Settings
-###
-spring.jpa.hibernate.ddl-auto = update
-spring.jpa.properties.hibernate.show_sql=false
-spring.jpa.properties.hibernate.use_sql_comments=false
-spring.jpa.properties.hibernate.format_sql=false
-
-
