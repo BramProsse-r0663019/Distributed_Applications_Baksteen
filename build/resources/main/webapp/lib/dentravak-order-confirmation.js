@@ -19,13 +19,23 @@ class DenTravakSandwichOrderConfirmation extends DenTravakAbstractElement {
     get template() {
         return `
         <style>
+            h3 {
+                margin-top: 20px;
+            }
+            h5 {
+                margin-top: 50px;
+            }
+            #show-sandwich-list:hover {
+                background-color: #C8ECFD !important;
+                transition: background-color 1.5s, color 1.5s;
+            }
         </style>
         <div>
             <div>
                 <h3>Welcome to Den Travak</h3>
-                <button id="show-sandwich-list">New order</button>
             </div>
-            <h4>We just received your order, thanks!</h4>
+            <h5>We just received your order, thanks!</h5>
+            <button class="btn btn-info active" id="show-sandwich-list">New order</button>
         </div>
         `;
     }

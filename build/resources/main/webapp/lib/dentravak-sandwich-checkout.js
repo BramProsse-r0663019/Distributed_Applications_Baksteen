@@ -56,19 +56,36 @@ class DenTravakSandwichCheckout extends DenTravakAbstractElement{
                 div.dt-sandwich-info {
                     margin-left: auto;
                 }
+                h3 {
+                    margin-top: 20px;
+                }
+                h5 {
+                    margin-top: 50px;
+                }
+                #back-button {
+                    border-radius: 20px;
+                }
+                #back-button:hover {
+                    background-color: #C8ECFD !important;
+                    transition: background-color 1.5s;
+                }
+                #order-button:hover {
+                    background-color: #C8ECFD !important;
+                    transition: background-color 1.5s, color 1.5s;
+                }
             </style>
             <div class="animate">
                 <div class="dt-header">
-                    <h3>Welkcome at Den Travak</h3>
-                    <button id="back-button" class="btn btn-primary">Back</button>
+                    <h3>Welcome at Den Travak</h3>
+                    <button id="back-button" class="btn btn-info">Back</button>
                 </div>
-                <h4>Your selected delicious sandwich</h4>
+                <h5>Your selected delicious sandwich</h5>
                 <div>
                     <ul id="sandwiches" class="list-group">
                     </ul>
                 </div>
                 <div class="form-group">
-                    <label for="typeBrood"><h4>Choose your bread type</h4></label>
+                    <label for="typeBrood"><h5>Choose your bread type</h5></label>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="breadType" id="radioBoterhammekes" value="BOTERHAMMEKES" checked>
                         <label class="form-check-label" for="radioBoterhammekes">
@@ -89,17 +106,17 @@ class DenTravakSandwichCheckout extends DenTravakAbstractElement{
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="mobile-phone-number"><h4>Phone Number:</h4></label>
-                    <input type="text" class="form-control" id="mobile-phone-number" placeholder="0487/12 34 56">
+                    <label for="mobile-phone-number"><h5>Phone Number</h5></label>
+                    <input type="text" class="form-control" id="mobile-phone-number">
                 </div>
-                <button id="order-button" class="btn btn-primary active">Order</button>
+                <button id="order-button" class="btn btn-info active">Order</button>
             </div>
         `;
     }
 
     getSandwichTemplate(sandwich) {
         return `
-            <a class="list-group-item">
+            <a class="list-group-item border-bottom border-info">
                 <div class="bmd-list-group-col">
                     <p class="list-group-item-heading">${sandwich.name}</p>
                     <p class="list-group-item-text">${sandwich.ingredients}</p>

@@ -42,14 +42,17 @@ class DenTravakApp extends DenTravakAbstractElement{
         return `
             <style>
                 .hidden {display: none;}
+                a:hover {
+                    background-color: #C8ECFD !important;
+                    transition: background-color 1.5s;
+                }
             </style>
-            <a href="http://localhost:8081/admin.html">Login</a>
+            <a class="btn btn-outline-info" href="http://localhost:8081/admin.html">Login</a>
             <dt-sandwich-list></dt-sandwich-list>
             <dt-sandwich-checkout></dt-sandwich-checkout>
             <dt-order-confirmation></dt-order-confirmation>
         `;
     }
-
 }
 
 //Our custom element on index.html is called 'dt-app' -> we define it here

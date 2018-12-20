@@ -27,17 +27,31 @@ class DenTravakLogin extends DenTravakAbstractElement {
     get template() {
         return `
         <style>
+            h3 {
+                margin-top: 20px;
+                margin-bottom: 50px;
+            }
+            #login:hover {
+                background-color: #C8ECFD !important;
+                transition: background-color 1.5s, color 1.5s;
+            }
         </style>
         <div>
             <div>
-                <h3>Login on Den Travak</h3>
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" value="admin">
-
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" value="t">
-
-                <button id="login">Login</button>
+                <div class="dt-header">
+                    <h3>Login on Den Travak</h3>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input class="form-control" type="text" id="username" name="username" value="admin">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input class="form-control" type="password" id="password" name="password" value="t">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-info active" id="login">Login</button>
+                </div>
             </div>
         </div>
         `;
