@@ -21,7 +21,6 @@ class DenTravakSandwichOrderConfirmation extends DenTravakAbstractElement {
                 recommendedItem.emailAddress = this.order.mobilePhoneNumber;
                 recommendedItem.ratedItem = this.order.sandwichId;
                 recommendedItem.rating = scoreBtn.dataset.score;
-                console.log(recommendedItem);
 
                 fetch('http://193.191.177.8:10468/recommendation/recommend/', {
                     method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -32,8 +31,8 @@ class DenTravakSandwichOrderConfirmation extends DenTravakAbstractElement {
                     },
                     body: JSON.stringify(recommendedItem),
                 })
-                .then(response => {response.json(); console.log(response.json)})
-                .then(resAsJson => {console.log(resAsJson); alert('Thanks for the rating')});
+                .then(response => response.json())
+                .then(resAsJson => alert('Thanks for the rating'));
             }));
     }
 
