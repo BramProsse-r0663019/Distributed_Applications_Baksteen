@@ -7,8 +7,8 @@ class DenTravakSandwichOrderConfirmation extends DenTravakAbstractElement {
         this.initEventListeners();
     }
 
-    init(order) {
-        this.order = order;
+    init(sandwich) {
+        this.sandwich = sandwich;
     }
 
     initEventListeners() {
