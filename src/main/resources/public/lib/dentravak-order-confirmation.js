@@ -7,8 +7,8 @@ class DenTravakSandwichOrderConfirmation extends DenTravakAbstractElement {
         this.initEventListeners();
     }
 
-    init(sandwich) {
-        this.sandwich = sandwich;
+    init(order) {
+        this.order = order;
     }
 
     initEventListeners() {
@@ -54,10 +54,10 @@ class DenTravakSandwichOrderConfirmation extends DenTravakAbstractElement {
             <div>
                 <h3>Welcome to Den Travak</h3>
             </div>
-            <h5>We just received your order, thanks!</h5>
+            <h4>We just received your order, thanks!</h4>
             <button class="btn btn-info active" id="show-sandwich-list">New order</button>
 
-            <h4>Did u like it? Please leave a rating</h4>
+            <h5>Did u like it? Please leave a rating</h5>
                 <button type="button" class="btn btn-primary bmd-btn-fab score" data-score="1">1</button>    
                 <button type="button" class="btn btn-primary bmd-btn-fab score" data-score="2">2</button>
                 <button type="button" class="btn btn-primary bmd-btn-fab score" data-score="3">3</button>    
