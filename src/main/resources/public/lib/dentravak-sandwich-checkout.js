@@ -46,7 +46,7 @@ class DenTravakSandwichCheckout extends DenTravakAbstractElement{
                 },
                 body:JSON.stringify(order)
             })
-            .then(this.app().dispatchEvent(new CustomEvent('order-succeeded', {detail: this.sandwich})));
+            .then(this.app().dispatchEvent(new CustomEvent('order-succeeded', {detail: order})));
 
             //Show sandwich in browserconsole
             console.log("New order: " + order.name + " - " + order.breadType + " - " + order.price);
