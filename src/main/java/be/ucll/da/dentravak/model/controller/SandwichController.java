@@ -4,20 +4,14 @@ import be.ucll.da.dentravak.model.db.SandwichRepository;
 import be.ucll.da.dentravak.model.domain.Sandwich;
 import be.ucll.da.dentravak.model.domain.SandwichPreferences;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-
 import javax.inject.Inject;
 import javax.naming.ServiceUnavailableException;
-import java.math.BigDecimal;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.*;
-//import javax.inject.Inject;
-//import javax.naming.ServiceUnavailableException;
 
 @RestController
 @RequestMapping(value = "/sandwiches", produces = "application/json")
@@ -119,8 +113,6 @@ public class SandwichController {
         return sandwich(sandwich.getId());
     }
 
-    //
-// why comment: for testing
     @GetMapping("/getpreferences/{emailAddress}")
     public SandwichPreferences getPreferences(@PathVariable String emailAddress) throws RestClientException, ServiceUnavailableException {
         URI service = recommendationServiceUrl()
@@ -130,14 +122,6 @@ public class SandwichController {
                 .getForEntity(service, SandwichPreferences.class)
                 .getBody();
     }
-
-//    public Optional<URI> recommendationServiceUrl() {
-//        try {
-//            return Optional.of(new URI("http://localhost:8081"));
-//        } catch (URISyntaxException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 
     public Optional<URI> recommendationServiceUrl() {
         return discoveryClient.getInstances("recommendation")

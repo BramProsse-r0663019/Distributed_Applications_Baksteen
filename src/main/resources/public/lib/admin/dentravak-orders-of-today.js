@@ -5,7 +5,7 @@ class DenTravakOrdersOfToday extends DenTravakAbstractElement {
     connectedCallback() {
         super.connectedCallback();
         this.initEventListeners();
-        fetch('http://localhost:8080/orders/today')
+        fetch('http://193.191.177.8:10468/den-travak/orders/today')
             .then(resp => resp.json())
             .then(json => this.updateOrdersOfToday(json));
     }
@@ -24,7 +24,7 @@ class DenTravakOrdersOfToday extends DenTravakAbstractElement {
     }
 
     printAllOrders() {
-        fetch('http://localhost:8080/orders/print')
+        fetch('http://193.191.177.8:10468/den-travak/orders/print')
             .then(resp => resp.json())
             .then(json => this.createCSVFile(json));
     }

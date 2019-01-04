@@ -2,7 +2,6 @@ package be.ucll.da.dentravak.model.domain;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.UUID;
 
 @Entity

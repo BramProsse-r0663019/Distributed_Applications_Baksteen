@@ -5,7 +5,7 @@ class DenTravakSandwichList extends DenTravakAbstractElement {
     //Get Sandwiches via REST from backend
     connectedCallback() {
         super.connectedCallback();
-        fetch('http://localhost:8080/sandwiches')
+        fetch('http://193.191.177.8:10468/den-travak/sandwiches')
             .then(resp => resp.json())
             .then(json => this.updateSandwichesList(json));
     }

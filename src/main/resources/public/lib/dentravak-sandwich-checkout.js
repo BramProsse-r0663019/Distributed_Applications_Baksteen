@@ -28,7 +28,7 @@ class DenTravakSandwichCheckout extends DenTravakAbstractElement{
         order.price = this.sandwich.price;
         order.mobilePhoneNumber = this.byCss('input[id="mobile-phone-number"]').value;
 
-        fetch("http://localhost:8080/orders",
+        fetch("http://193.191.177.8:10468/den-travak/orders",
         {
             method: "POST",
             mode: "cors",
