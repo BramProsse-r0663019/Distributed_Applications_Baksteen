@@ -22,7 +22,7 @@ class DenTravakSandwichOrderConfirmation extends DenTravakAbstractElement {
                 recommendedItem.ratedItem = this.order.sandwichId;
                 recommendedItem.rating = scoreBtn.dataset.score;
 
-                fetch('http://193.191.177.8:10468/den-travak/sandwiches/recommend/', {
+                fetch('http://193.191.177.8:10468/recommendation/recommend/', {
                     method: "POST", // *GET, POST, PUT, DELETE, etc.
                     mode: "cors", // no-cors, cors, *same-origin
                     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
