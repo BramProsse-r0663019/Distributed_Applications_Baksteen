@@ -36,7 +36,7 @@ public class SandwichController {
     public List<Sandwich> sandwiches() {
         try {
             SandwichPreferences preferences = getPreferences("ronald.dehuysser@ucll.be");
-
+            System.out.println(preferences);
             List<Sandwich> allSandwiches = (List<Sandwich>) sandwichRepository.findAll();
 
             Collections.sort(allSandwiches, new Comparator<Sandwich>(){
@@ -116,7 +116,7 @@ public class SandwichController {
     @GetMapping("/getpreferences/{emailAddress}")
     public SandwichPreferences getPreferences(@PathVariable String emailAddress) throws RestClientException, ServiceUnavailableException {
         URI service = recommendationServiceUrl()
-                .map(s -> s.resolve("/recommend/" + emailAddress))
+                .map(s -> s.resolve("recommendation/recommend/" + emailAddress))
                 .orElseThrow(ServiceUnavailableException::new);
         return restTemplate
                 .getForEntity(service, SandwichPreferences.class)
