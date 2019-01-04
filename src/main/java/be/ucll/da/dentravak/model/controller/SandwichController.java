@@ -36,7 +36,6 @@ public class SandwichController {
     public List<Sandwich> sandwiches() {
         try {
             SandwichPreferences preferences = getPreferences("ronald.dehuysser@ucll.be");
-            System.out.println(preferences);
             List<Sandwich> allSandwiches = (List<Sandwich>) sandwichRepository.findAll();
 
             Collections.sort(allSandwiches, new Comparator<Sandwich>(){
