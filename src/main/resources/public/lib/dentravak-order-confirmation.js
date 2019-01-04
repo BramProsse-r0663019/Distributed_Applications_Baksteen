@@ -22,7 +22,7 @@ class DenTravakSandwichOrderConfirmation extends DenTravakAbstractElement {
                 recommendedItem.ratedItem = this.order.sandwichId;
                 recommendedItem.rating = scoreBtn.dataset.score;
 
-                fetch('http://193.191.177.8:10468/den-travak/recommend/', {
+                fetch('http://193.191.177.8:10468/den-travak/sandwiches/recommend/', {
                     method: "POST", // *GET, POST, PUT, DELETE, etc.
                     mode: "cors", // no-cors, cors, *same-origin
                     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -58,11 +58,11 @@ class DenTravakSandwichOrderConfirmation extends DenTravakAbstractElement {
             <button class="btn btn-info active" id="show-sandwich-list">New order</button>
 
             <h5>Did u like it? Please leave a rating</h5>
-                <button type="button" class="btn btn-primary bmd-btn-fab score" data-score="1">1</button>    
-                <button type="button" class="btn btn-primary bmd-btn-fab score" data-score="2">2</button>
-                <button type="button" class="btn btn-primary bmd-btn-fab score" data-score="3">3</button>    
-                <button type="button" class="btn btn-primary bmd-btn-fab score" data-score="4">4</button>    
-                <button type="button" class="btn btn-primary bmd-btn-fab score" data-score="5">5</button>    
+            <button type="button" class="btn btn-primary bmd-btn-fab score" data-score="1">1</button>    
+            <button type="button" class="btn btn-primary bmd-btn-fab score" data-score="2">2</button>
+            <button type="button" class="btn btn-primary bmd-btn-fab score" data-score="3">3</button>    
+            <button type="button" class="btn btn-primary bmd-btn-fab score" data-score="4">4</button>    
+            <button type="button" class="btn btn-primary bmd-btn-fab score" data-score="5">5</button>    
         </div>
         `;
     }
