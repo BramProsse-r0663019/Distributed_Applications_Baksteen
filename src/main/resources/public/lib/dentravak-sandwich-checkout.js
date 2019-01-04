@@ -20,28 +20,46 @@ class DenTravakSandwichCheckout extends DenTravakAbstractElement{
 
     //Fetch to back-end
     orderSandwich(){
+        let everythingOk = true;
+
         //Empty order object
         let order = {};
         order.sandwichId = this.sandwich.id;
         order.name = this.sandwich.name;
         order.breadType = this.byCss('input[name="breadType"]:checked').value;
         order.price = this.sandwich.price;
-        order.mobilePhoneNumber = this.byCss('input[id="mobile-phone-number"]').value;
+        let mobile = this.byCss('input[id="mobile-phone-number"]').value;
+        if(mobile !== null && mobile !== "") {
+            order.mobilePhoneNumber = mobile;
+        } else {
+            everythingOk = false;
+        }
 
-        fetch("http://193.191.177.8:10468/den-travak/orders",
-        {
-            method: "POST",
-            mode: "cors",
-            credentials: "same-origin",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body:JSON.stringify(order)
-        })
-        .then(this.app().dispatchEvent(new CustomEvent('order-succeeded', {detail: this.sandwich})));
+        let rating = this.byCss('input[id="rating"]').value;
+        if(rating >= 0 && rating <= 5) {
 
-        //Show sandwich in browserconsole
-        console.log("New order: " + order.name + " - " + order.breadType + " - " + order.price);
+        } else {
+            everythingOk = false;
+        }
+
+        if (everythingOk) {
+            fetch("http://193.191.177.8:10468/den-travak/orders",
+            {
+                method: "POST",
+                mode: "cors",
+                credentials: "same-origin",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify(order)
+            })
+            .then(this.app().dispatchEvent(new CustomEvent('order-succeeded', {detail: this.sandwich})));
+
+            //Show sandwich in browserconsole
+            console.log("New order: " + order.name + " - " + order.breadType + " - " + order.price);
+        } else {
+            //Do nothing -> stay on page
+        }
     }
 
     get template() {
