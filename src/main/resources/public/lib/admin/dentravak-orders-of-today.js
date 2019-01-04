@@ -26,7 +26,9 @@ class DenTravakOrdersOfToday extends DenTravakAbstractElement {
     printAllOrders() {
         fetch('http://193.191.177.8:10468/den-travak/orders/print')
             .then(resp => resp.json())
-            .then(json => this.createCSVFile(json));
+            .then(json => this.createCSVFile(json))
+            //Redirecten om direct false op true te zetten
+            .then(window.location.href = "http://193.191.177.8:10468/den-travak/admin.html");
     }
 
     createCSVFile(orders){

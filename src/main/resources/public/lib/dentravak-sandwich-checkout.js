@@ -39,6 +39,9 @@ class DenTravakSandwichCheckout extends DenTravakAbstractElement{
             body:JSON.stringify(order)
         })
         .then(this.app().dispatchEvent(new CustomEvent('order-succeeded', {detail: this.sandwich})));
+
+        //Show sandwich in browserconsole
+        console.log("New order: " + order.name + " - " + order.breadType + " - " + order.price);
     }
 
     get template() {
@@ -107,7 +110,11 @@ class DenTravakSandwichCheckout extends DenTravakAbstractElement{
                 </div>
                 <div class="form-group">
                     <label for="mobile-phone-number"><h5>Phone Number</h5></label>
-                    <input type="text" class="form-control" id="mobile-phone-number">
+                    <input type="text" class="form-control" id="mobile-phone-number" required>
+                </div>
+                <div class="form-group">
+                    <label for="rating"><h5>Rating (0 - 5)</h5></label>
+                    <input type="number" class="form-control" id="rating" required min="0" step="1" max="5" value="3">
                 </div>
                 <button id="order-button" class="btn btn-info active">Order</button>
             </div>
