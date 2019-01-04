@@ -14,6 +14,26 @@ class DenTravakSandwichOrderConfirmation extends DenTravakAbstractElement {
     initEventListeners() {
         //show-sandwich-list = id of button -> see template
         this.byId('show-sandwich-list').addEventListener('click', e => this.app().dispatchEvent(new Event('show-sandwich-list')));
+        this.shadowRoot.querySelectorAll('button.score')
+            .forEach(scoreBtn => scoreBtn.addEventListener('click', e => {
+
+                let recommendedItem = {};
+                recommendedItem.emailAddress = this.order.phoneNumber;
+                recommendedItem.ratedItem = this.order.sandwichId;
+                recommendedItem.rating = scoreBtn.dataset.score;
+
+                fetch('http://193.191.177.8:10468/den-travak/recommend/', {
+                    method: "POST", // *GET, POST, PUT, DELETE, etc.
+                    mode: "cors", // no-cors, cors, *same-origin
+                    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                    headers: {
+                        "Content-Type": "application/json; charset=utf-8",
+                    },
+                    body: JSON.stringify(recommendedItem),
+                })
+                .then(response => response.json())
+                .then(resAsJson => alert('Thanks for the rating'));
+            }));
     }
 
     get template() {
@@ -36,6 +56,13 @@ class DenTravakSandwichOrderConfirmation extends DenTravakAbstractElement {
             </div>
             <h5>We just received your order, thanks!</h5>
             <button class="btn btn-info active" id="show-sandwich-list">New order</button>
+
+            <h4>Did u like it? Please leave a rating</h4>
+                <button type="button" class="btn btn-primary bmd-btn-fab score" data-score="1">1</button>    
+                <button type="button" class="btn btn-primary bmd-btn-fab score" data-score="2">2</button>
+                <button type="button" class="btn btn-primary bmd-btn-fab score" data-score="3">3</button>    
+                <button type="button" class="btn btn-primary bmd-btn-fab score" data-score="4">4</button>    
+                <button type="button" class="btn btn-primary bmd-btn-fab score" data-score="5">5</button>    
         </div>
         `;
     }
