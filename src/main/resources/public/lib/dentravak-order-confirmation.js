@@ -33,7 +33,7 @@ class DenTravakSandwichOrderConfirmation extends DenTravakAbstractElement {
                     body: JSON.stringify(recommendedItem),
                 })
                 .then(response => {response.json(); console.log(response.json)})
-                .then(resAsJson => {console.log(resAsJson); alert('Thanks for the rating'));
+                .then(resAsJson => {console.log(resAsJson); alert('Thanks for the rating')});
             }));
     }
 
