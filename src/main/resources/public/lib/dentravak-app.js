@@ -21,7 +21,6 @@ class DenTravakApp extends DenTravakAbstractElement{
         this.byCss(`dt-sandwich-list`).classList.remove('hidden');
         this.byCss(`dt-sandwich-checkout`).classList.add('hidden');
         this.byCss(`dt-order-confirmation`).classList.add('hidden');
-        window.location.reload(true);
     }
 
     showCheckoutPage(sandwich) {
