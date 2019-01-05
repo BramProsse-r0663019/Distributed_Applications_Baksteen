@@ -126,7 +126,16 @@ public class SandwichController {
     @CrossOrigin
     @RequestMapping(value = "", method = RequestMethod.POST)
     public Sandwich saveSandwich(@RequestBody Sandwich sandwich) {
-        sandwichRepository.save(sandwich);
+        List<Sandwich> allSandwiches = (List<Sandwich>)sandwichRepository.findAll();
+        boolean duplicate = false;
+        for(Sandwich sandwichEl : allSandwiches) {
+            if(sandwichEl.getName().equals(sandwich.getName())) {
+                duplicate = true;
+            }
+        }
+        if (!duplicate) {
+            sandwichRepository.save(sandwich);
+        }
         return sandwichByName(sandwich.getName());
     }
 

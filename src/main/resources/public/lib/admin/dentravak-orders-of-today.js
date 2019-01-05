@@ -26,8 +26,6 @@ class DenTravakOrdersOfToday extends DenTravakAbstractElement {
         fetch('http://193.191.177.8:10468/den-travak/orders/print')
             .then(resp => resp.json())
             .then(json => this.createCSVFile(json))
-            //Page reloaden en terug met server communiceren
-            .then(window.location.reload(true));
     }
 
     createCSVFile(orders){
