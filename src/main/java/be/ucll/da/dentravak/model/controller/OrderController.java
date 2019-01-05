@@ -25,15 +25,15 @@ public class OrderController {
     }
 
     @CrossOrigin
-    @GetMapping(value = "?date={creationDate}")
-    public List<Order> ordersByDate(@PathVariable String creationDate) {
+    @GetMapping(value = "{date}")
+    public List<Order> ordersByDate(@PathVariable String date) {
         List<Order> allOrders = orders();
         List<Order> orders = new ArrayList<>();
 
-        LocalDate date = LocalDate.parse(creationDate);
+        LocalDate creationDate = LocalDate.parse(date);
         for (Order order : allOrders) {
             LocalDate dateOfOrder = order.getCreationDate().toLocalDate();
-            if(dateOfOrder.isEqual(date)) {
+            if(dateOfOrder.isEqual(creationDate)) {
                 orders.add(order);
             }
         }
