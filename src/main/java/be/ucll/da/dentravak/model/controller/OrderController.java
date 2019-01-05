@@ -25,7 +25,7 @@ public class OrderController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "?date={creationdate}")
+    @RequestMapping(value = "?date={creationDate}")
     public List<Order> ordersByDate(@PathVariable LocalDate creationDate) {
         List<Order> allOrders = orders();
         List<Order> orders = new ArrayList<>();
