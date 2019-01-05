@@ -18,6 +18,7 @@ public class OrderController {
         this.orderRepository = orderRepository;
     }
 
+    //Using a non required parameter : orders?date= 
     @CrossOrigin
     @GetMapping
     public List<Order> orders(@RequestParam(value="date", required=false) String date) {
@@ -37,22 +38,6 @@ public class OrderController {
             return (List<Order>) orderRepository.findAll();
         }
     }
-
-    // @CrossOrigin
-    // //@GetMapping
-    // public List<Order> ordersByDate(@RequestParam(value="date", required=true) String date) {
-    //     List<Order> allOrders = orders();
-    //     List<Order> orders = new ArrayList<>();
-
-    //     LocalDate creationDate = LocalDate.parse(date);
-    //     for (Order order : allOrders) {
-    //         LocalDate dateOfOrder = order.getCreationDate().toLocalDate();
-    //         if(dateOfOrder.isEqual(creationDate)) {
-    //             orders.add(order);
-    //         }
-    //     }
-    //     return orders;
-    // }
 
     @CrossOrigin
     @GetMapping(value = "/today")
