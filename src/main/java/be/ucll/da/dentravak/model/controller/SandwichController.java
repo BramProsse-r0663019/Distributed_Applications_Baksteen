@@ -39,8 +39,8 @@ public class SandwichController {
     @CrossOrigin
     @RequestMapping(value = "")
     public List<Sandwich> sandwiches() {
-        PrintWriter out;
         try {
+            PrintWriter out;
             File file = new File ("/etc/repos/file.txt");
             out = new PrintWriter("/etc/repos/output.txt"); 
             out.println("Going to sort");
@@ -65,20 +65,8 @@ public class SandwichController {
             out.close();
             return allSandwiches;
         } catch (ServiceUnavailableException e) {
-            try {
-                out.close();
-                out = new PrintWriter("/etc/repos/output.txt"); 
-                out.println(e);
-                out.close();
-            }
             return (List<Sandwich>) sandwichRepository.findAll();
         } catch(Exception e){
-            try {
-                out.close();
-                out = new PrintWriter("/etc/repos/output.txt"); 
-                out.println(e);
-                out.close();
-            }
             return (List<Sandwich>) sandwichRepository.findAll();
         }
     }
