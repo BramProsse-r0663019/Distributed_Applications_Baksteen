@@ -13,6 +13,11 @@ import javax.naming.ServiceUnavailableException;
 import java.net.URI;
 import java.util.*;
 
+import java.io.PrintWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 @RestController
 @RequestMapping(value = "/sandwiches", produces = "application/json")
 public class SandwichController {
@@ -34,13 +39,16 @@ public class SandwichController {
     @CrossOrigin
     @RequestMapping(value = "")
     public List<Sandwich> sandwiches() {
-        System.out.println("Going to sort");
+        PrintWriter out;
         try {
+            File file = new File ("/etc/repos/file.txt");
+            out = new PrintWriter("/etc/repos/output.txt"); 
+            out.println("Going to sort");
             //Hardcoded mobile phonenumber just for testing
             SandwichPreferences preferences = getPreferences("05");
             List<Sandwich> allSandwiches = (List<Sandwich>) sandwichRepository.findAll();
-            System.out.println(preferences);
-            System.out.println(allSandwiches);
+            out.println(preferences);
+            out.println(allSandwiches);
             Collections.sort(allSandwiches, new Comparator<Sandwich>(){
                 @Override
                 public int compare(Sandwich o1, Sandwich o2) {
@@ -53,13 +61,24 @@ public class SandwichController {
                     return 0;
                 }
             });
-
+            
+            out.close();
             return allSandwiches;
         } catch (ServiceUnavailableException e) {
-            System.out.println(e);
+            try {
+                out.close();
+                out = new PrintWriter("/etc/repos/output.txt"); 
+                out.println(e);
+                out.close();
+            }
             return (List<Sandwich>) sandwichRepository.findAll();
         } catch(Exception e){
-            System.out.println(e);
+            try {
+                out.close();
+                PrintWriter out = new PrintWriter("/etc/repos/output.txt"); 
+                out.println(e);
+                out.close();
+            }
             return (List<Sandwich>) sandwichRepository.findAll();
         }
     }
