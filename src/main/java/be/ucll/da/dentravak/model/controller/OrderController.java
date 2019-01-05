@@ -31,7 +31,7 @@ public class OrderController {
         List<Order> orders = new ArrayList<>();
 
         for (Order order : allOrders) {
-            if(order.getCreationDate().equals(creationDate)) {
+            if(order.getCreationDate().getYear() == creationDate.getYear() && order.getCreationDate().getMonth() == creationDate.getMonth() && order.getCreationDate().getDayOfYear() == creationDate.getDayOfYear()) {
                 orders.add(order);
             }
         }
