@@ -31,7 +31,8 @@ public class OrderController {
         List<Order> orders = new ArrayList<>();
 
         for (Order order : allOrders) {
-            if(order.getCreationDate().getYear() == creationDate.getYear() && order.getCreationDate().getMonth() == creationDate.getMonth() && order.getCreationDate().getDayOfYear() == creationDate.getDayOfYear()) {
+            LocalDate date = order.getCreationDate().toLocalDate();
+            if(date.isEqual(creationDate)) {
                 orders.add(order);
             }
         }
@@ -46,7 +47,8 @@ public class OrderController {
 
         for (Order order : allOrders) {
             //Check for orders today
-            if(order.getCreationDate().getYear() == LocalDate.now().getYear() && order.getCreationDate().getMonth() == LocalDate.now().getMonth() && order.getCreationDate().getDayOfYear() == LocalDate.now().getDayOfYear()) {
+            LocalDate date = order.getCreationDate().toLocalDate();
+            if(date.isEqual(LocalDate.now())) {
                 todaysOrders.add(order);
             }   
         }
@@ -61,7 +63,8 @@ public class OrderController {
 
         for (Order order : allOrders) {
             //Check for orders today
-            if(order.getCreationDate().getYear() == LocalDate.now().getYear() && order.getCreationDate().getMonth() == LocalDate.now().getMonth() && order.getCreationDate().getDayOfYear() == LocalDate.now().getDayOfYear()) {
+            LocalDate date = order.getCreationDate().toLocalDate();
+            if(date.isEqual(LocalDate.now())) {
                 order.setPrinted(true);
                 orderRepository.save(order);
                 todaysOrders.add(order);
