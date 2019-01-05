@@ -25,13 +25,23 @@ class SortByPreferences implements Comparator<Sandwich>
 
     @Override
     public int compare(Sandwich s1, Sandwich s2) {
-        if(preferences.getRatingForSandwich(s1.getId()) > preferences.getRatingForSandwich(s2.getId())){
-             return 1;
-         }
-         if(preferences.getRatingForSandwich(s1.getId()) < preferences.getRatingForSandwich(s2.getId())){
-             return -1;
-         }
-        return 0;
+
+        //When both breads are rated
+        if(preferences.getRatingForSandwich(s1.getId()) != null && preferences.getRatingForSandwich(s2.getId()) != null) {
+            if(preferences.getRatingForSandwich(s1.getId()) > preferences.getRatingForSandwich(s2.getId())){
+                return 1;
+            }
+            else if(preferences.getRatingForSandwich(s1.getId()) < preferences.getRatingForSandwich(s2.getId())){
+                return -1;
+            }
+            return 0;
+        } else if (preferences.getRatingForSandwich(s1.getId()) == null && preferences.getRatingForSandwich(s2.getId()) == null) {
+            return 0;
+        } else if (preferences.getRatingForSandwich(s2.getId()) == null) {
+            return 1;
+        } else {
+            return -1;
+        }
     }
 }
 
@@ -39,10 +49,11 @@ class SortByPreferences implements Comparator<Sandwich>
 @RequestMapping(value = "/sandwiches", produces = "application/json")
 public class SandwichController {
 
-    private final SandwichRepository sandwichRepository;
-
     @Inject
     private DiscoveryClient discoveryClient;
+
+    @Inject
+    private SandwichRepository sandwichRepository;
 
     @Inject
     private RestTemplate restTemplate;
@@ -68,6 +79,23 @@ public class SandwichController {
         } catch(Exception e){
             return (List<Sandwich>) sandwichRepository.findAll();
         }
+    }
+
+    @GetMapping("/getpreferences/{emailAddress}")
+    public SandwichPreferences getPreferences(@PathVariable String emailAddress) throws RestClientException, ServiceUnavailableException {
+        URI service = recommendationServiceUrl()
+                .map(s -> s.resolve("/recommendation/recommend/" + emailAddress))
+                .orElseThrow(ServiceUnavailableException::new);
+        return restTemplate
+                .getForEntity(service, SandwichPreferences.class)
+                .getBody();
+    }
+
+    public Optional<URI> recommendationServiceUrl() {
+        return discoveryClient.getInstances("recommendation")
+                .stream()
+                .map(si -> si.getUri())
+                .findFirst();
     }
 
     @CrossOrigin
@@ -121,22 +149,5 @@ public class SandwichController {
             throw new SandwichNotFoundException();
         }
         return sandwich(sandwich.getId());
-    }
-
-    @GetMapping("/getpreferences/{emailAddress}")
-    public SandwichPreferences getPreferences(@PathVariable String emailAddress) throws RestClientException, ServiceUnavailableException {
-        URI service = recommendationServiceUrl()
-                .map(s -> s.resolve("/recommendation/recommend/" + emailAddress))
-                .orElseThrow(ServiceUnavailableException::new);
-        return restTemplate
-                .getForEntity(service, SandwichPreferences.class)
-                .getBody();
-    }
-
-    public Optional<URI> recommendationServiceUrl() {
-        return discoveryClient.getInstances("recommendation")
-                .stream()
-                .map(si -> si.getUri())
-                .findFirst();
     }
 }
