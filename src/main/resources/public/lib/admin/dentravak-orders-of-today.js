@@ -20,7 +20,6 @@ class DenTravakOrdersOfToday extends DenTravakAbstractElement {
             let orderEl = htmlToElement(this.getOrderTemplate(order));
             ordersOfToday.appendChild(orderEl);
         });
-        console.log("testupdateordersoftoday");
     }
 
     printAllOrders() {

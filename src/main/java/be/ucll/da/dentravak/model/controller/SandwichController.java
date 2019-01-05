@@ -13,10 +13,28 @@ import javax.naming.ServiceUnavailableException;
 import java.net.URI;
 import java.util.*;
 
-import java.io.PrintWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+
+//Class to sort sandwiches
+class SortByPreferences implements Comparator<Sandwich>
+{
+    private SandwichPreferences preferences;
+
+    SortByPreferences(SandwichPreferences preferences) {
+        this.preferences = preferences;
+    }
+
+    @Override
+    public int compare(Sandwich s1, Sandwich s2) {
+        return (s1.getPrice().compareTo(s2.getPrice()));
+        // if(preferences.getRatingForSandwich(o1.getId()) > preferences.getRatingForSandwich(o2.getId())){
+        //     return 1;
+        // }
+        // if(preferences.getRatingForSandwich(o1.getId()) < preferences.getRatingForSandwich(o2.getId())){
+        //     return -1;
+        // }
+        //return 0;
+    }
+}
 
 @RestController
 @RequestMapping(value = "/sandwiches", produces = "application/json")
@@ -40,32 +58,15 @@ public class SandwichController {
     @RequestMapping(value = "")
     public List<Sandwich> sandwiches() {
         try {
-            PrintWriter out;
-            File file = new File ("/etc/repos/file.txt");
-            out = new PrintWriter("/etc/repos/output.txt"); 
-            out.println("Going to sort");
             //Hardcoded mobile phonenumber just for testing
-            SandwichPreferences preferences = getPreferences("05");
+            //SandwichPreferences preferences = getPreferences("05");
+            SandwichPreferences preferences = null;
             List<Sandwich> allSandwiches = (List<Sandwich>) sandwichRepository.findAll();
-            out.println(preferences);
-            out.println(allSandwiches);
-            Collections.sort(allSandwiches, new Comparator<Sandwich>(){
-                @Override
-                public int compare(Sandwich o1, Sandwich o2) {
-                    if(preferences.getRatingForSandwich(o1.getId()) > preferences.getRatingForSandwich(o2.getId())){
-                        return 1;
-                    }
-                    if(preferences.getRatingForSandwich(o1.getId()) < preferences.getRatingForSandwich(o2.getId())){
-                        return -1;
-                    }
-                    return 0;
-                }
-            });
-            
-            out.close();
+            SortByPreferences sbp = new SortByPreferences(preferences);
+            Collections.sort(allSandwiches, sbp);
             return allSandwiches;
-        } catch (ServiceUnavailableException e) {
-            return (List<Sandwich>) sandwichRepository.findAll();
+        //} catch (ServiceUnavailableException e) {
+        //    return (List<Sandwich>) sandwichRepository.findAll();
         } catch(Exception e){
             return (List<Sandwich>) sandwichRepository.findAll();
         }
@@ -127,7 +128,7 @@ public class SandwichController {
     @GetMapping("/getpreferences/{emailAddress}")
     public SandwichPreferences getPreferences(@PathVariable String emailAddress) throws RestClientException, ServiceUnavailableException {
         URI service = recommendationServiceUrl()
-                .map(s -> s.resolve("/recommend/" + emailAddress))
+                .map(s -> s.resolve("/recommendation/recommend/" + emailAddress))
                 .orElseThrow(ServiceUnavailableException::new);
         return restTemplate
                 .getForEntity(service, SandwichPreferences.class)
@@ -135,7 +136,7 @@ public class SandwichController {
     }
 
     public Optional<URI> recommendationServiceUrl() {
-        return discoveryClient.getInstances("/recommendation")
+        return discoveryClient.getInstances("recommendation")
                 .stream()
                 .map(si -> si.getUri())
                 .findFirst();
