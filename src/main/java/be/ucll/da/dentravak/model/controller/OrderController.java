@@ -31,8 +31,11 @@ public class OrderController {
         List<Order> allOrders = orders();
         List<Order> orders = new ArrayList<>();
         
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
-        LocalDate date = LocalDate.parse(creationDate, formatter);
+        if(!creationDate.isEmpty()) {
+            return orders;
+        }
+
+        LocalDate date = LocalDate.parse(creationDate);
         for (Order order : allOrders) {
             LocalDate dateOfOrder = order.getCreationDate().toLocalDate();
             if(dateOfOrder.isEqual(date)) {
