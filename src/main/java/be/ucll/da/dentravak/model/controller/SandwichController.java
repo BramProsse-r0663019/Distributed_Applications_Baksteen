@@ -34,10 +34,13 @@ public class SandwichController {
     @CrossOrigin
     @RequestMapping(value = "")
     public List<Sandwich> sandwiches() {
+        System.out.println("Going to sort");
         try {
+            //Hardcoded mobile phonenumber just for testing
             SandwichPreferences preferences = getPreferences("05");
             List<Sandwich> allSandwiches = (List<Sandwich>) sandwichRepository.findAll();
-
+            System.out.println(preferences);
+            System.out.println(allSandwiches);
             Collections.sort(allSandwiches, new Comparator<Sandwich>(){
                 @Override
                 public int compare(Sandwich o1, Sandwich o2) {
@@ -53,8 +56,10 @@ public class SandwichController {
 
             return allSandwiches;
         } catch (ServiceUnavailableException e) {
+            System.out.println(e);
             return (List<Sandwich>) sandwichRepository.findAll();
         } catch(Exception e){
+            System.out.println(e);
             return (List<Sandwich>) sandwichRepository.findAll();
         }
     }
@@ -123,7 +128,7 @@ public class SandwichController {
     }
 
     public Optional<URI> recommendationServiceUrl() {
-        return discoveryClient.getInstances("recommendation")
+        return discoveryClient.getInstances("/recommendation")
                 .stream()
                 .map(si -> si.getUri())
                 .findFirst();
