@@ -28,19 +28,21 @@ class SortByPreferences implements Comparator<Sandwich>
 
         //When both breads are rated
         if(preferences.getRatingForSandwich(s1.getId()) != null && preferences.getRatingForSandwich(s2.getId()) != null) {
+            //Bread with biggest rating has to come first
             if(preferences.getRatingForSandwich(s1.getId()) > preferences.getRatingForSandwich(s2.getId())){
-                return -1;
-            }
-            else if(preferences.getRatingForSandwich(s1.getId()) < preferences.getRatingForSandwich(s2.getId())){
                 return 1;
             }
+            else if(preferences.getRatingForSandwich(s1.getId()) < preferences.getRatingForSandwich(s2.getId())){
+                return -1;
+            }
+            //Equal
             return 0;
         } else if (preferences.getRatingForSandwich(s1.getId()) == null && preferences.getRatingForSandwich(s2.getId()) == null) {
             return 0;
         } else if (preferences.getRatingForSandwich(s2.getId()) == null) {
-            return -1;
-        } else {
             return 1;
+        } else {
+            return -1;
         }
     }
 }
