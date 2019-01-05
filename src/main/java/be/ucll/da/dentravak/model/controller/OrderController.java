@@ -25,8 +25,8 @@ public class OrderController {
     }
 
     @CrossOrigin
-    @GetMapping(value = "{date}")
-    public List<Order> ordersByDate(@PathVariable String date) {
+    @GetMapping
+    public List<Order> ordersByDate(@RequestParam(value="date", required=true) String date) {
         List<Order> allOrders = orders();
         List<Order> orders = new ArrayList<>();
 
