@@ -19,13 +19,13 @@ public class OrderController {
     }
 
     @CrossOrigin
-    //@RequestMapping(value = "")
+    @GetMapping
     public List<Order> orders() {
         return (List<Order>) orderRepository.findAll();
     }
 
     @CrossOrigin
-    @RequestMapping(value = "?date={creationDate}")
+    @GetMapping(value = "?date={creationDate}")
     public List<Order> ordersByDate(@PathVariable String creationDate) {
         List<Order> allOrders = orders();
         List<Order> orders = new ArrayList<>();
@@ -41,7 +41,7 @@ public class OrderController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/today")
+    @GetMapping(value = "/today")
     public List<Order> ordersOfToday() {
         List<Order> allOrders = orders();
         List<Order> todaysOrders = new ArrayList<>();
