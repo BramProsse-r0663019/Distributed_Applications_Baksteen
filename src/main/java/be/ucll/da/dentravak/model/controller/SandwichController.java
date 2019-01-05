@@ -25,14 +25,13 @@ class SortByPreferences implements Comparator<Sandwich>
 
     @Override
     public int compare(Sandwich s1, Sandwich s2) {
-        return (s1.getPrice().compareTo(s2.getPrice()));
-        // if(preferences.getRatingForSandwich(o1.getId()) > preferences.getRatingForSandwich(o2.getId())){
-        //     return 1;
-        // }
-        // if(preferences.getRatingForSandwich(o1.getId()) < preferences.getRatingForSandwich(o2.getId())){
-        //     return -1;
-        // }
-        //return 0;
+        if(preferences.getRatingForSandwich(s1.getId()) > preferences.getRatingForSandwich(s2.getId())){
+             return 1;
+         }
+         if(preferences.getRatingForSandwich(s1.getId()) < preferences.getRatingForSandwich(s2.getId())){
+             return -1;
+         }
+        return 0;
     }
 }
 
@@ -60,7 +59,6 @@ public class SandwichController {
         try {
             //Hardcoded mobile phonenumber just for testing
             SandwichPreferences preferences = getPreferences("05");
-            //SandwichPreferences preferences = null;
             List<Sandwich> allSandwiches = (List<Sandwich>) sandwichRepository.findAll();
             SortByPreferences sbp = new SortByPreferences(preferences);
             Collections.sort(allSandwiches, sbp);
