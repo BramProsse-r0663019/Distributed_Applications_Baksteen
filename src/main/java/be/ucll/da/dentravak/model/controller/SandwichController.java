@@ -75,7 +75,7 @@ public class SandwichController {
         } catch(Exception e){
             try {
                 out.close();
-                PrintWriter out = new PrintWriter("/etc/repos/output.txt"); 
+                out = new PrintWriter("/etc/repos/output.txt"); 
                 out.println(e);
                 out.close();
             }
