@@ -5,12 +5,11 @@ import be.ucll.da.dentravak.model.domain.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "", produces = "application/json")
+@RequestMapping(value = "/orders", produces = "application/json")
 public class OrderController {
 
     private final OrderRepository orderRepository;
@@ -20,28 +19,24 @@ public class OrderController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/orders")
+    //@RequestMapping(value = "")
     public List<Order> orders() {
         return (List<Order>) orderRepository.findAll();
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/orders?date={creationDate}")
+    @RequestMapping(value = "?date={creationDate}")
     public List<Order> ordersByDate(@PathVariable String creationDate) {
         List<Order> allOrders = orders();
         List<Order> orders = new ArrayList<>();
-        
-        if(!creationDate.isEmpty()) {
-            return orders;
-        }
 
-        // LocalDate date = LocalDate.parse(creationDate);
-        // for (Order order : allOrders) {
-        //     LocalDate dateOfOrder = order.getCreationDate().toLocalDate();
-        //     if(dateOfOrder.isEqual(date)) {
-        //         orders.add(order);
-        //     }
-        // }
+        LocalDate date = LocalDate.parse(creationDate);
+        for (Order order : allOrders) {
+            LocalDate dateOfOrder = order.getCreationDate().toLocalDate();
+            if(dateOfOrder.isEqual(date)) {
+                orders.add(order);
+            }
+        }
         return orders;
     }
 
