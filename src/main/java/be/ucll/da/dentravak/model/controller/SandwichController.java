@@ -59,14 +59,14 @@ public class SandwichController {
     public List<Sandwich> sandwiches() {
         try {
             //Hardcoded mobile phonenumber just for testing
-            //SandwichPreferences preferences = getPreferences("05");
-            SandwichPreferences preferences = null;
+            SandwichPreferences preferences = getPreferences("05");
+            //SandwichPreferences preferences = null;
             List<Sandwich> allSandwiches = (List<Sandwich>) sandwichRepository.findAll();
             SortByPreferences sbp = new SortByPreferences(preferences);
             Collections.sort(allSandwiches, sbp);
             return allSandwiches;
-        //} catch (ServiceUnavailableException e) {
-        //    return (List<Sandwich>) sandwichRepository.findAll();
+        } catch (ServiceUnavailableException e) {
+            return (List<Sandwich>) sandwichRepository.findAll();
         } catch(Exception e){
             return (List<Sandwich>) sandwichRepository.findAll();
         }
