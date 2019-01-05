@@ -57,7 +57,7 @@ public class OrderController {
     @CrossOrigin
     @GetMapping(value = "/today")
     public List<Order> ordersOfToday() {
-        List<Order> allOrders = orders();
+        List<Order> allOrders = (List<Order>) orderRepository.findAll();
         List<Order> todaysOrders = new ArrayList<>();
 
         for (Order order : allOrders) {
@@ -73,7 +73,7 @@ public class OrderController {
     @CrossOrigin
     @RequestMapping(value = "/print")
     public List<Order> printOrderOfToday() {
-        List<Order> allOrders = orders();
+        List<Order> allOrders = (List<Order>) orderRepository.findAll();
         List<Order> todaysOrders = new ArrayList<>();
 
         for (Order order : allOrders) {
