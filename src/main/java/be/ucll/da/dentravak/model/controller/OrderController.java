@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/orders", produces = "application/json")
+@RequestMapping(value = "", produces = "application/json")
 public class OrderController {
 
     private final OrderRepository orderRepository;
@@ -20,13 +20,13 @@ public class OrderController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "")
+    @RequestMapping(value = "/orders")
     public List<Order> orders() {
         return (List<Order>) orderRepository.findAll();
     }
 
     @CrossOrigin
-    @RequestMapping(value = "?date={creationDate}")
+    @RequestMapping(value = "/orders?date={creationDate}")
     public List<Order> ordersByDate(@PathVariable String creationDate) {
         List<Order> allOrders = orders();
         List<Order> orders = new ArrayList<>();
@@ -35,13 +35,13 @@ public class OrderController {
             return orders;
         }
 
-        LocalDate date = LocalDate.parse(creationDate);
-        for (Order order : allOrders) {
-            LocalDate dateOfOrder = order.getCreationDate().toLocalDate();
-            if(dateOfOrder.isEqual(date)) {
-                orders.add(order);
-            }
-        }
+        // LocalDate date = LocalDate.parse(creationDate);
+        // for (Order order : allOrders) {
+        //     LocalDate dateOfOrder = order.getCreationDate().toLocalDate();
+        //     if(dateOfOrder.isEqual(date)) {
+        //         orders.add(order);
+        //     }
+        // }
         return orders;
     }
 
