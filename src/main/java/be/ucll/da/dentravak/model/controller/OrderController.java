@@ -5,6 +5,7 @@ import be.ucll.da.dentravak.model.domain.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,14 +26,16 @@ public class OrderController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/{creationDate}")
-    public List<Order> ordersByDate(@PathVariable LocalDate creationDate) {
+    @RequestMapping(value = "?date={creationDate}")
+    public List<Order> ordersByDate(@PathVariable String creationDate) {
         List<Order> allOrders = orders();
         List<Order> orders = new ArrayList<>();
-
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+        LocalDate date = LocalDate.parse(creationDate, formatter);
         for (Order order : allOrders) {
-            LocalDate date = order.getCreationDate().toLocalDate();
-            if(date.isEqual(creationDate)) {
+            LocalDate dateOfOrder = order.getCreationDate().toLocalDate();
+            if(dateOfOrder.isEqual(date)) {
                 orders.add(order);
             }
         }
