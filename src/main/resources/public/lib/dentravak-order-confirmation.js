@@ -13,7 +13,7 @@ class DenTravakSandwichOrderConfirmation extends DenTravakAbstractElement {
 
     initEventListeners() {
         //show-sandwich-list = id of button -> see template
-        this.byId('show-sandwich-list').addEventListener('click', e => {this.app().dispatchEvent(new Event('show-sandwich-list')); window.location.reload(true)});
+        this.byId('show-sandwich-list').addEventListener('click', e => {this.app().dispatchEvent(new Event('show-sandwich-list')); });
         this.shadowRoot.querySelectorAll('button.score')
             .forEach(scoreBtn => scoreBtn.addEventListener('click', e => {
 
