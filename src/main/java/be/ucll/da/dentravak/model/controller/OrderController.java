@@ -20,25 +20,39 @@ public class OrderController {
 
     @CrossOrigin
     @GetMapping
-    public List<Order> orders() {
-        return (List<Order>) orderRepository.findAll();
-    }
+    public List<Order> orders(@RequestParam(value="date", required=false) String date) {
+        List<Order> allOrders = (List<Order>) orderRepository.findAll();
+        List<Order> ordersOfDate = new ArrayList<>();
 
-    @CrossOrigin
-    @GetMapping
-    public List<Order> ordersByDate(@RequestParam(value="date", required=true) String date) {
-        List<Order> allOrders = orders();
-        List<Order> orders = new ArrayList<>();
-
-        LocalDate creationDate = LocalDate.parse(date);
-        for (Order order : allOrders) {
-            LocalDate dateOfOrder = order.getCreationDate().toLocalDate();
-            if(dateOfOrder.isEqual(creationDate)) {
-                orders.add(order);
+        try {
+            LocalDate creationDate = LocalDate.parse(date);
+            for (Order order : allOrders) {
+                LocalDate dateOfOrder = order.getCreationDate().toLocalDate();
+                if(dateOfOrder.isEqual(creationDate)) {
+                    ordersOfDate.add(order);
+                }
             }
+            return ordersOfDate;
+        } catch (Exception e) {
+            return (List<Order>) orderRepository.findAll();
         }
-        return orders;
     }
+
+    // @CrossOrigin
+    // //@GetMapping
+    // public List<Order> ordersByDate(@RequestParam(value="date", required=true) String date) {
+    //     List<Order> allOrders = orders();
+    //     List<Order> orders = new ArrayList<>();
+
+    //     LocalDate creationDate = LocalDate.parse(date);
+    //     for (Order order : allOrders) {
+    //         LocalDate dateOfOrder = order.getCreationDate().toLocalDate();
+    //         if(dateOfOrder.isEqual(creationDate)) {
+    //             orders.add(order);
+    //         }
+    //     }
+    //     return orders;
+    // }
 
     @CrossOrigin
     @GetMapping(value = "/today")
